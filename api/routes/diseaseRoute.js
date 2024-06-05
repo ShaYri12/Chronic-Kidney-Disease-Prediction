@@ -3,7 +3,7 @@ import { prediction } from '../controllers/diseaseController.js'
 
 const router = express.Router();
 
-//create new Menu
+//predict heart disease
 router.post("/", prediction);
 
 export default router;

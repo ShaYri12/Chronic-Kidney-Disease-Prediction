@@ -7,16 +7,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const predictDisease = (symptoms) => {
-  // Extract values from the symptoms object and convert them to an array
-  const symptomsArray = Object.values(symptoms).map(parseFloat);
+  // Convert the symptoms object to a JSON string
+  const symptomsJSON = JSON.stringify(symptoms);
 
   return new Promise((resolve, reject) => {
     const pythonExecutable = 'python'; // Replace with the path to your Python executable if needed
-    const pythonScriptPath = path.join(__dirname, '../predictHeartDisease.py');
+    const pythonScriptPath = path.join(__dirname, '../predictCKD.py');
 
     const pythonProcess = spawn(pythonExecutable, [
       pythonScriptPath,
-      JSON.stringify(symptomsArray), // Pass the symptoms array as JSON string
+      symptomsJSON, // Pass the symptoms JSON string directly
     ]);
 
     let output = '';

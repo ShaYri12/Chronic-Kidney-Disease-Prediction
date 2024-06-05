@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./disease-prediction.css";
 import { Link, useNavigate } from "react-router-dom";
 import LoginImg from "../../public/Images/newsletter.gif";
 import signupImg from "../../public/Images/hero.gif";
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 const ProgressBar = ({ currentStep, totalSteps }) => {
-  // Define the array of icons
-  const icons = [
-    <i className="ri-lock-password-line"></i>,
-    <i className="ri-group-line"></i>,
-    <i className="ri-medal-line"></i>,
-  ];
+  const icons = [1,2,3,4];
 
   return (
     <div className="progress-bar">
@@ -42,50 +42,41 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   );
 };
 
-const Tooltip = ({ info }) => {
-  return (
-    <div class="relative flex flex-col items-center group">
-      <svg
-        class="w-5 h-5"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-          clip-rule="evenodd"
-        />
-      </svg>
-      <div class="absolute bottom-0 w-[150px] flex flex-col items-center hidden mb-5 group-hover:flex">
-        <span class="relative rounded-md z-10 p-3 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
-          {info}
-        </span>
-        <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
-      </div>
-    </div>
-  );
-};
 
 const DiseasePrediction = () => {
+  useEffect(() => {
+    window.scrollTo(0, -1);
+  }, []);
+
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 3;
+  const totalSteps = 4;
   const navigate = useNavigate();
 
   const [symptoms, setSymptoms] = useState({
     age: "",
-    sex: "",
-    cp: "",
-    trestbps: "",
-    chol: "",
-    fbs: "",
-    restecg: "",
-    thalach: "",
-    exang: "",
-    oldpeak: "",
-    slope: "",
-    ca: "",
-    thal: "",
+    bp: "", // Blood Pressure
+    sg: "", // Specific Gravity
+    al: "", // Albumin
+    su: "", // Sugar
+    rbc: "", // Red Blood Cells
+    pc: "", // Pus Cell
+    pcc: "", // Pus Cell Clumps
+    ba: "", // Bacteria
+    bgr: "", // Blood Glucose Random
+    bu: "", // Blood Urea
+    sc: "", // Serum Creatinine
+    sod: "", // Sodium
+    pot: "", // Potassium
+    hemo: "", // Hemoglobin
+    pcv: "", // Packed Cell Volume
+    wc: "", // White Blood Cell Count
+    rc: "", // Red Blood Cell Count
+    htn: "", // Hypertension
+    dm: "", // Diabetes Mellitus
+    cad: "", // Coronary Artery Disease
+    appet: "", // Appetite
+    pe: "", // Pedal Edema
+    ane: "" // Anemia
   });
 
   const [prediction, setPrediction] = useState(null);
@@ -95,14 +86,13 @@ const DiseasePrediction = () => {
     setSymptoms({ ...symptoms, [name]: value });
   };
 
-  const handleSignUp = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     predictDisease(e);
   };
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    // Add your sign-up logic here
   };
 
   const handleNextStep = (e) => {
@@ -110,7 +100,7 @@ const DiseasePrediction = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     } else {
-      handleSignUp(e);
+      handleSubmit(e);
     }
   };
 
@@ -129,12 +119,12 @@ const DiseasePrediction = () => {
   const predictDisease = (e) => {
     e.preventDefault();
     axios
-      .post("https://disease-prediction-system-api.vercel.app/api/predict", {
+      .post("http://localhost:8000/api/predict", {
         symptoms,
       })
       .then((response) => {
         setPrediction(response.data.result);
-        navigate("/heart-disease-result", {
+        navigate("/prediction-result", {
           state: { prediction: response.data.result },
         });
       })
@@ -171,26 +161,14 @@ const DiseasePrediction = () => {
         <div className="user signupBx">
           <div className="formBx flex flex-col">
             <h1 className="text-center font-bold text-3xl">
-              Heart Disease Prediction
+              Chronic Kidney Disease Prediction
             </h1>
             <h2 className="text-center pt-1">Answer the following Questions</h2>
             <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
             <div className={`form-step ${currentStep === 1 ? "active" : ""}`}>
-              <form onSubmit={handleNextStep}>
-                <h2>Questions</h2>
-                <label
-                  className="flex items-center justify-between"
-                  htmlFor="age"
-                >
-                  Age
-                  <Tooltip
-                    info={
-                      <ul className="space-y-1">
-                        <li> Age In Years </li>
-                      </ul>
-                    }
-                  />
-                </label>
+              <form onSubmit={handleNextStep} className="space-y-3">
+
+                <label htmlFor="age"> Age </label>
                 <input
                   type="number"
                   name="age"
@@ -199,99 +177,81 @@ const DiseasePrediction = () => {
                   onChange={handleInputChange}
                   required
                 />
-                <label
-                  className="flex items-center justify-between"
-                  htmlFor="sex"
-                >
-                  Gender
-                  <Tooltip
-                    info={
-                      <ul className="space-y-1">
-                        <li> 0 = Female </li>
-                        <li> 1 = Male </li>
-                      </ul>
-                    }
-                  />
-                </label>
 
+                <label htmlFor="bp"> Blood Pressure </label>
                 <input
                   type="number"
-                  name="sex"
+                  name="bp"
                   placeholder="Answer"
-                  value={symptoms.sex}
+                  value={symptoms.bp}
                   onChange={handleInputChange}
                   required
                 />
-                <label
-                  className="flex items-center justify-between"
-                  htmlFor="cp"
-                >
-                  Chest Pain Type
-                  <Tooltip
-                    info={
-                      <ul className="space-y-1">
-                        <li> 0: Typical angina </li>
-                        <li> 1: Atypical angina </li>
-                        <li> 2: Non-anginal pain </li>
-                        <li> 3: Asymptomatic </li>{" "}
-                      </ul>
-                    }
-                  />
-                </label>
+
+                <label htmlFor="sg"> Specific gravity of urine. </label>
                 <input
                   type="number"
-                  name="cp"
+                  name="sg"
                   placeholder="Answer"
-                  value={symptoms.cp}
+                  value={symptoms.sg}
                   onChange={handleInputChange}
                   required
                 />
-                <label
-                  className="flex items-center justify-between"
-                  htmlFor="trestbps"
-                >
-                  Resting Blood Pressure
-                  <Tooltip
-                    info={
-                      <ul className="space-y-1">
-                        <li>
-                          {" "}
-                          Resting blood pressure (in mm Hg on admission to the
-                          hospital){" "}
-                        </li>
-                      </ul>
-                    }
-                  />
-                </label>
-                <input
-                  type="number"
-                  name="trestbps"
-                  placeholder="Answer"
-                  value={symptoms.trestbps}
-                  onChange={handleInputChange}
-                  required
-                />
-                <label
-                  className="flex items-center justify-between"
-                  htmlFor="chol"
-                >
-                  Serum Cholesterol (in mg/dl)
-                  <Tooltip
-                    info={
-                      <ul className="space-y-1">
-                        <li> Serum Cholestoral in mg/dl </li>
-                      </ul>
-                    }
-                  />
-                </label>
-                <input
-                  type="number"
-                  name="chol"
-                  placeholder="Answer"
-                  value={symptoms.chol}
-                  onChange={handleInputChange}
-                  required
-                />
+
+                <FormControl fullWidth >
+                    <InputLabel className="w-max" id="demo-simple-select-label">Albumin content in urine.</InputLabel>
+                    <Select 
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="al"
+                      value={symptoms.al}
+                      label="Albumin content in urine."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="0">0</MenuItem>
+                      <MenuItem value="1">1</MenuItem>
+                      <MenuItem value="2">2</MenuItem>
+                      <MenuItem value="3">3</MenuItem>
+                      <MenuItem value="4">4</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Sugar content in urine.</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="su"
+                      value={symptoms.su}
+                      label="Sugar content in urine."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="0">0</MenuItem>
+                      <MenuItem value="1">1</MenuItem>
+                      <MenuItem value="2">2</MenuItem>
+                      <MenuItem value="3">3</MenuItem>
+                      <MenuItem value="4">4</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Red Blood Cells</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="rbc"
+                      value={symptoms.rbc}
+                      label="Red Blood Cells"
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="normal">Normal</MenuItem>
+                      <MenuItem value="abnormal">Abnormal</MenuItem>
+                    </Select>
+                  </FormControl>
+
                 <div className="flex justify-end">
                   <button type="submit" className="btn btn-next mt-1 py-3 px-7">
                     Next
@@ -307,124 +267,165 @@ const DiseasePrediction = () => {
             </div>
             <div className={`form-step ${currentStep === 2 ? "active" : ""}`}>
               <form onSubmit={handleNextStep}>
-                <h2>Round II</h2>
+                <div className="d-flex gap-2 space-y-3">
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Pus Cell Count</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="pc"
+                      value={symptoms.pc}
+                      label="Pus Cell Count"
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="normal">Normal</MenuItem>
+                      <MenuItem value="abnormal">Abnormal</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Pus Cell Clumps</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="pcc"
+                      value={symptoms.pcc}
+                      label="Pus Cell Clumps"
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="notpresent">Not Present</MenuItem>
+                      <MenuItem value="present">Present</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth style={{marginBottom:"7px"}}>
+                    <InputLabel id="demo-simple-select-label">Bacteria present in urine.</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="ba"
+                      value={symptoms.ba}
+                      label="Bacteria present in urine."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="notpresent">Not Present</MenuItem>
+                      <MenuItem value="present">Present</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <label htmlFor="bgr"> Blood glucose random. </label>
+                  <input
+                    type="number"
+                    name="bgr"
+                    placeholder="Answer"
+                    value={symptoms.bgr}
+                    onChange={handleInputChange}
+                    required
+                  />
+
+                  <label htmlFor="bu"> Blood urea. </label>
+                  <input
+                    type="number"
+                    name="bu"
+                    placeholder="Answer"
+                    value={symptoms.bu}
+                    onChange={handleInputChange}
+                    required
+                  />
+
+                  <label htmlFor="sc"> Serum creatinine. </label>
+                  <input
+                    type="number"
+                    name="sc"
+                    placeholder="Answer"
+                    value={symptoms.sc}
+                    onChange={handleInputChange}
+                    required
+                  />
+
+                </div>
+                <div className="flex justify-between">
+                  <button
+                    type="button"
+                    className="btn btn-back py-3 px-7 mt-1"
+                    onClick={handlePreviousStep}
+                  >
+                    Back
+                  </button>
+                  <button type="submit" className="btn btn-next py-3 px-7 mt-1">
+                    Next
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className={`form-step ${currentStep === 3 ? "active" : ""}`}>
+              <form onSubmit={handleNextStep}>
                 <div className="d-flex gap-2">
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="fbs"
-                  >
-                    Fasting Blood Sugar
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li> 1 = True </li>
-                          <li> 0 = False </li>
-                        </ul>
-                      }
-                    />
-                  </label>
+
+                  <label htmlFor="sod"> Sodium content in serum. </label>
                   <input
                     type="number"
-                    name="fbs"
+                    name="sod"
                     placeholder="Answer"
-                    value={symptoms.fbs}
+                    value={symptoms.sod}
                     onChange={handleInputChange}
                     required
                   />
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="restecg"
-                  >
-                    Resting Electrocardiographic Results
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li> 0: Normal </li>
-                          <li> 1: Having ST-T wave abnormality</li>
-                          <li>
-                            {" "}
-                            2: Showing probable or definite left ventricular
-                            hypertrophy by Estes' criteria{" "}
-                          </li>
-                        </ul>
-                      }
-                    />
-                  </label>
+
+                  <label htmlFor="pot"> Potassium content in serum. </label>
                   <input
                     type="number"
-                    name="restecg"
+                    name="pot"
                     placeholder="Answer"
-                    value={symptoms.restecg}
+                    value={symptoms.pot}
                     onChange={handleInputChange}
                     required
                   />
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="thalach"
-                  >
-                    Maximum Heart Rate Achieved
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li> Maximum heart rate achieved </li>{" "}
-                        </ul>
-                      }
-                    />
-                  </label>
+
+                  <label htmlFor="hemo"> Hemoglobin content. </label>
                   <input
                     type="number"
-                    name="thalach"
+                    name="hemo"
                     placeholder="Answer"
-                    value={symptoms.thalach}
+                    value={symptoms.hemo}
                     onChange={handleInputChange}
                     required
                   />
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="exang"
-                  >
-                    Exercise Induced Angina.
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li> 1 for Yes; </li>
-                          <li> 0 for No; </li>
-                        </ul>
-                      }
-                    />
-                  </label>
+
+                  <label htmlFor="pcv"> Packed cell volume. </label>
                   <input
                     type="number"
-                    name="exang"
+                    name="pcv"
                     placeholder="Answer"
-                    value={symptoms.exang}
+                    value={symptoms.pcv}
                     onChange={handleInputChange}
                     required
                   />
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="oldpeak"
-                  >
-                    ST Depression Induced by Exercise Relative to Rest
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li>
-                            {" "}
-                            ST Depression induced by exercise relative to rest{" "}
-                          </li>{" "}
-                        </ul>
-                      }
-                    />
-                  </label>
+
+                  <label htmlFor="wc"> White blood cell count. </label>
                   <input
                     type="number"
-                    name="oldpeak"
+                    name="wc"
                     placeholder="Answer"
-                    value={symptoms.oldpeak}
+                    value={symptoms.wc}
                     onChange={handleInputChange}
                     required
                   />
+
+                  <label htmlFor="rc"> Red blood cell count. </label>
+                  <input
+                    type="number"
+                    name="rc"
+                    placeholder="Answer"
+                    value={symptoms.rc}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  
                 </div>
                 <div className="flex justify-between">
                   <button
@@ -442,90 +443,112 @@ const DiseasePrediction = () => {
             </div>
             <div
               className={`form-step overflow-y-auto ${
-                currentStep === 3 ? "active" : ""
+                currentStep === 4 ? "active" : ""
               }`}
             >
               <form
-                onSubmit={handleSignUp}
+                onSubmit={handleSubmit}
                 className="h-100 d-flex flex-column overflow-y-auto items-center justify-center"
               >
-                <h2>Final Round</h2>
-                <div className="d-flex gap-2">
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="slope"
-                  >
-                    Slope of the Peak Exercise ST Segment
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li> 0: upsloping; </li>
-                          <li> 1: flat; </li>
-                          <li> 2: downsloping; </li>
-                        </ul>
-                      }
-                    />
-                  </label>
-                  <input
-                    type="number"
-                    name="slope"
-                    placeholder="Answer"
-                    value={symptoms.slope}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="ca"
-                  >
-                    Number of Major Vessels (0-3) Colored by Flourosopy
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li>
-                            {" "}
-                            Number of major vessels (0-3) colored by flourosopy
-                          </li>
-                        </ul>
-                      }
-                    />
-                  </label>
-                  <input
-                    type="number"
-                    name="ca"
-                    placeholder="Answer"
-                    value={symptoms.ca}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <label
-                    className="flex items-center justify-between"
-                    htmlFor="thal"
-                  >
-                    Thalassemia (3 for normal; 6 for fixed defect; 7 for
-                    reversible defect)
-                    <Tooltip
-                      info={
-                        <ul className="space-y-1">
-                          <li>
-                            {" "}
-                            0 = error (in the original dataset 0 maps to NaN's);{" "}
-                          </li>
-                          <li> 1 = fixed defect; </li>
-                          <li> 2 = normal; </li>
-                          <li> 3 = reversable defect; </li>
-                        </ul>
-                      }
-                    />
-                  </label>
-                  <input
-                    type="number"
-                    name="thal"
-                    placeholder="Answer"
-                    value={symptoms.thal}
-                    onChange={handleInputChange}
-                    required
-                  />
+                <div className="d-flex gap-2 space-y-3">
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Hypertension (yes/no).</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="htn"
+                      value={symptoms.htn}
+                      label="Hypertension (yes/no)."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="no">No</MenuItem>
+                      <MenuItem value="yes">Yes</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Diabetes Mellitus (yes/no).</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="dm"
+                      value={symptoms.dm}
+                      label="Diabetes Mellitus (yes/no)."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="no">No</MenuItem>
+                      <MenuItem value="yes">Yes</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Coronary artery disease (yes/no).</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="cad"
+                      value={symptoms.cad}
+                      label="Coronary artery disease (yes/no)."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="no">No</MenuItem>
+                      <MenuItem value="yes">Yes</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Appetite (Good/Poor).</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="appet"
+                      value={symptoms.appet}
+                      label="Appetite (Good/Poor)."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="good">Good</MenuItem>
+                      <MenuItem value="poor">Poor</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Pedal edema (yes/no).</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="pe"
+                      value={symptoms.pe}
+                      label="Pedal edema (yes/no)."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="no">No</MenuItem>
+                      <MenuItem value="yes">Yes</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <FormControl fullWidth style={{marginBottom:"7px"}}>
+                    <InputLabel id="demo-simple-select-label">Anemia (yes/no).</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="ane"
+                      value={symptoms.ane}
+                      label="Anemia (yes/no)."
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <MenuItem value="no">No</MenuItem>
+                      <MenuItem value="yes">Yes</MenuItem>
+                    </Select>
+                  </FormControl>
+                  
+
                 </div>
                 <div className="flex justify-between">
                   <button

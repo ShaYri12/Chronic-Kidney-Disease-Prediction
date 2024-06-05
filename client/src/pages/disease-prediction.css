@@ -232,7 +232,8 @@
   color: black;
   position: relative;
   z-index: 2; /* Ensure it is above the connector line */
-  font-size: 23px;
+  font-size: 19px;
+  font-weight: bold;
 }
 
 /* Active checkpoint circle styles */
@@ -310,4 +311,14 @@
 /* Transitions for smooth navigation */
 .form-step:not(.active) {
   transform: translateX(-10%);
+}
+
+
+.MuiInputBase-formControl{
+  position: relative;
+}
+
+.MuiSelect-select{
+  position: absolute;
+  width: -webkit-fill-available;
 }

@@ -1,18 +1,22 @@
 import predictDisease from '../models/PredictModel.js'
 
-//create new Menu
-export const prediction = async (req, res) =>{
+// Create a new endpoint for prediction
+export const prediction = async (req, res) => {
     const { symptoms } = req.body;
-    console.log("prediction me Symptoms:",symptoms)
+    console.log("Symptoms received:", symptoms);
     
-  try {
-    const prediction = await predictDisease(symptoms);
-    console.log("prediction: ",prediction)
-    res.json({ 
-      "success": true,
-      "result": prediction
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    try {
+        // Call the predictDisease function with the symptoms data
+        const prediction = await predictDisease(symptoms);
+        console.log("Prediction:", prediction);
+        
+        // Send the prediction result back to the frontend
+        res.json({ 
+            "success": true,
+            "result": prediction
+        });
+    } catch (error) {
+        // Handle any errors that occur during prediction
+        res.status(500).json({ error: error.message });
+    }
 }
