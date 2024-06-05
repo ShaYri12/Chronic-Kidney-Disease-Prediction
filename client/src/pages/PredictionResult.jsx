@@ -1,4 +1,3 @@
-// src/components/PredictionResult.js
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './PredictionResult.css';
@@ -23,10 +22,13 @@ const PredictionResult = () => {
     styleClass = "has-disease";
   }
 
+  // Split the message at the word "probability"
+  const [firstPart, secondPart] = message.split(/(probability.*)/i);
+
   const CKDTips = () => (
     <div className="ckd-tips mt-8 text-black text-left leading-8">
       <h3 className="text-3xl font-bold mb-4 text-center">Tips for Managing Chronic Kidney Disease</h3>
-      <ul className="list-disc list-inside ">
+      <ul className="list-disc list-inside">
         <li className='text-lg'><strong>Eat Right:</strong></li>
         <ul className="list-disc list-inside mb-5 ml-5">
           <li><strong>Cut Down on Salt:</strong> Use less salt in your food. Try herbs and spices instead.</li>
@@ -61,7 +63,11 @@ const PredictionResult = () => {
     <div className={`prediction-container ${styleClass} py-16`}>
       <h1 className='text-black font-extrabold text-5xl pb-16'>Chronic Kidney Disease Prediction Result</h1>
       <h2 className='text-8xl pb-6'>{emoji}</h2>
-      <h2 className='font-bold text-4xl pb-16'>{message}</h2>
+      <h2 className='font-bold text-4xl pb-16'>
+        {firstPart}
+        <br />
+        {secondPart}
+      </h2>
       {styleClass === "has-disease" && <CKDTips />}
       <Link to="/prediction" className="back-link back-btn">Predict Again</Link>
     </div>
