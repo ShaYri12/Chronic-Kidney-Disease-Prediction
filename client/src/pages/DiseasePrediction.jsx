@@ -9,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 const ProgressBar = ({ currentStep, totalSteps }) => {
   const icons = [1,2,3,4];
@@ -166,91 +167,105 @@ const DiseasePrediction = () => {
             <h2 className="text-center pt-1">Answer the following Questions</h2>
             <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
             <div className={`form-step ${currentStep === 1 ? "active" : ""}`}>
-              <form onSubmit={handleNextStep} className="space-y-3">
-
-                <label htmlFor="age"> Age </label>
-                <input
+              <form onSubmit={handleNextStep} className="space-y-4">
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Age"
+                  variant="outlined"
                   type="number"
                   name="age"
-                  placeholder="Answer"
+                  placeholder="Age"
                   value={symptoms.age}
                   onChange={handleInputChange}
                   required
                 />
 
-                <label htmlFor="bp"> Blood Pressure </label>
-                <input
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Blood Pressure"
+                  variant="outlined"
                   type="number"
                   name="bp"
-                  placeholder="Answer"
+                  placeholder="Blood Pressure"
                   value={symptoms.bp}
                   onChange={handleInputChange}
                   required
                 />
 
-                <label htmlFor="sg"> Specific gravity of urine. </label>
-                <input
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Specific gravity of urine."
+                  variant="outlined"
                   type="number"
                   name="sg"
-                  placeholder="Answer"
+                  placeholder="Specific gravity of urine."
                   value={symptoms.sg}
                   onChange={handleInputChange}
                   required
                 />
-
-                <FormControl fullWidth >
-                    <InputLabel className="w-max" id="demo-simple-select-label">Albumin content in urine.</InputLabel>
-                    <Select 
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      name="al"
-                      value={symptoms.al}
-                      label="Albumin content in urine."
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <MenuItem value="0">0</MenuItem>
-                      <MenuItem value="1">1</MenuItem>
-                      <MenuItem value="2">2</MenuItem>
-                      <MenuItem value="3">3</MenuItem>
-                      <MenuItem value="4">4</MenuItem>
-                    </Select>
-                  </FormControl>
+                
+                <FormControl fullWidth>
+                  <InputLabel className="w-max" id="demo-simple-select-label">
+                    Albumin content in urine.
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="al"
+                    value={symptoms.al}
+                    label="Albumin content in urine."
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <MenuItem value="0">0</MenuItem>
+                    <MenuItem value="1">1</MenuItem>
+                    <MenuItem value="2">2</MenuItem>
+                    <MenuItem value="3">3</MenuItem>
+                    <MenuItem value="4">4</MenuItem>
+                  </Select>
+                </FormControl>
 
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Sugar content in urine.</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      name="su"
-                      value={symptoms.su}
-                      label="Sugar content in urine."
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <MenuItem value="0">0</MenuItem>
-                      <MenuItem value="1">1</MenuItem>
-                      <MenuItem value="2">2</MenuItem>
-                      <MenuItem value="3">3</MenuItem>
-                      <MenuItem value="4">4</MenuItem>
-                    </Select>
-                  </FormControl>
+                  <InputLabel id="demo-simple-select-label">
+                    Sugar content in urine.
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="su"
+                    value={symptoms.su}
+                    label="Sugar content in urine."
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <MenuItem value="0">0</MenuItem>
+                    <MenuItem value="1">1</MenuItem>
+                    <MenuItem value="2">2</MenuItem>
+                    <MenuItem value="3">3</MenuItem>
+                    <MenuItem value="4">4</MenuItem>
+                  </Select>
+                </FormControl>
 
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Red Blood Cells</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      name="rbc"
-                      value={symptoms.rbc}
-                      label="Red Blood Cells"
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <MenuItem value="normal">Normal</MenuItem>
-                      <MenuItem value="abnormal">Abnormal</MenuItem>
-                    </Select>
-                  </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Red Blood Cells
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="rbc"
+                    value={symptoms.rbc}
+                    label="Red Blood Cells"
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <MenuItem value="normal">Normal</MenuItem>
+                    <MenuItem value="abnormal">Abnormal</MenuItem>
+                  </Select>
+                </FormControl>
 
                 <div className="flex justify-end">
                   <button type="submit" className="btn btn-next mt-1 py-3 px-7">
@@ -267,10 +282,11 @@ const DiseasePrediction = () => {
             </div>
             <div className={`form-step ${currentStep === 2 ? "active" : ""}`}>
               <form onSubmit={handleNextStep}>
-                <div className="d-flex gap-2 space-y-3">
-
+                <div className="d-flex gap-2 space-y-4 pb-3">
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Pus Cell Count</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Pus Cell Count
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -286,7 +302,9 @@ const DiseasePrediction = () => {
                   </FormControl>
 
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Pus Cell Clumps</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Pus Cell Clumps
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -301,8 +319,10 @@ const DiseasePrediction = () => {
                     </Select>
                   </FormControl>
 
-                  <FormControl fullWidth style={{marginBottom:"7px"}}>
-                    <InputLabel id="demo-simple-select-label">Bacteria present in urine.</InputLabel>
+                  <FormControl fullWidth style={{ marginBottom: "7px" }}>
+                    <InputLabel id="demo-simple-select-label">
+                      Bacteria present in urine.
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -317,28 +337,37 @@ const DiseasePrediction = () => {
                     </Select>
                   </FormControl>
 
-                  <label htmlFor="bgr"> Blood glucose random. </label>
-                  <input
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Blood glucose random."
+                    variant="outlined"
                     type="number"
                     name="bgr"
-                    placeholder="Answer"
+                    placeholder="Blood glucose random."
                     value={symptoms.bgr}
                     onChange={handleInputChange}
                     required
                   />
 
-                  <label htmlFor="bu"> Blood urea. </label>
-                  <input
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Blood urea."
+                    variant="outlined"
                     type="number"
                     name="bu"
-                    placeholder="Answer"
+                    placeholder="Blood urea."
                     value={symptoms.bu}
                     onChange={handleInputChange}
                     required
                   />
-
-                  <label htmlFor="sc"> Serum creatinine. </label>
-                  <input
+                  
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Serum creatinine."
+                    variant="outlined"
                     type="number"
                     name="sc"
                     placeholder="Answer"
@@ -346,7 +375,6 @@ const DiseasePrediction = () => {
                     onChange={handleInputChange}
                     required
                   />
-
                 </div>
                 <div className="flex justify-between">
                   <button
@@ -364,63 +392,81 @@ const DiseasePrediction = () => {
             </div>
             <div className={`form-step ${currentStep === 3 ? "active" : ""}`}>
               <form onSubmit={handleNextStep}>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 space-y-4 pb-3">
 
-                  <label htmlFor="sod"> Sodium content in serum. </label>
-                  <input
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Sodium content in serum."
+                    variant="outlined"
                     type="number"
                     name="sod"
-                    placeholder="Answer"
+                    placeholder="Sodium content in serum."
                     value={symptoms.sod}
                     onChange={handleInputChange}
                     required
                   />
 
-                  <label htmlFor="pot"> Potassium content in serum. </label>
-                  <input
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Potassium content in serum."
+                    variant="outlined"
                     type="number"
                     name="pot"
-                    placeholder="Answer"
+                    placeholder="Potassium content in serum."
                     value={symptoms.pot}
                     onChange={handleInputChange}
                     required
                   />
-
-                  <label htmlFor="hemo"> Hemoglobin content. </label>
-                  <input
+                  
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Hemoglobin content."
+                    variant="outlined"
                     type="number"
                     name="hemo"
-                    placeholder="Answer"
+                    placeholder="Hemoglobin content."
                     value={symptoms.hemo}
                     onChange={handleInputChange}
                     required
                   />
-
-                  <label htmlFor="pcv"> Packed cell volume. </label>
-                  <input
+                  
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Packed cell volume."
+                    variant="outlined"
                     type="number"
                     name="pcv"
-                    placeholder="Answer"
+                    placeholder="Packed cell volume."
                     value={symptoms.pcv}
                     onChange={handleInputChange}
                     required
                   />
 
-                  <label htmlFor="wc"> White blood cell count. </label>
-                  <input
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="White blood cell count."
+                    variant="outlined"
                     type="number"
                     name="wc"
-                    placeholder="Answer"
+                    placeholder="White blood cell count."
                     value={symptoms.wc}
                     onChange={handleInputChange}
                     required
                   />
 
-                  <label htmlFor="rc"> Red blood cell count. </label>
-                  <input
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    label="Red blood cell count."
+                    variant="outlined"
                     type="number"
                     name="rc"
-                    placeholder="Answer"
+                    placeholder="Red blood cell count."
                     value={symptoms.rc}
                     onChange={handleInputChange}
                     required
@@ -441,19 +487,14 @@ const DiseasePrediction = () => {
                 </div>
               </form>
             </div>
-            <div
-              className={`form-step overflow-y-auto ${
-                currentStep === 4 ? "active" : ""
-              }`}
-            >
-              <form
-                onSubmit={handleSubmit}
-                className="h-100 d-flex flex-column overflow-y-auto items-center justify-center"
-              >
-                <div className="d-flex gap-2 space-y-3">
+            <div className={`form-step ${currentStep === 4 ? "active" : ""}`}>
+              <form onSubmit={handleSubmit}>
+                <div className="d-flex gap-2 space-y-4 pb-3">
 
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Hypertension (yes/no).</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Hypertension (yes/no).
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -469,7 +510,9 @@ const DiseasePrediction = () => {
                   </FormControl>
 
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Diabetes Mellitus (yes/no).</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Diabetes Mellitus (yes/no).
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -483,9 +526,11 @@ const DiseasePrediction = () => {
                       <MenuItem value="yes">Yes</MenuItem>
                     </Select>
                   </FormControl>
-
+                  
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Coronary artery disease (yes/no).</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Coronary artery disease (yes/no).
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -499,9 +544,11 @@ const DiseasePrediction = () => {
                       <MenuItem value="yes">Yes</MenuItem>
                     </Select>
                   </FormControl>
-
+                  
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Appetite (Good/Poor).</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Appetite (Good/Poor).
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -517,7 +564,9 @@ const DiseasePrediction = () => {
                   </FormControl>
 
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Pedal edema (yes/no).</InputLabel>
+                    <InputLabel id="demo-simple-select-label">
+                      Pedal edema (yes/no).
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -532,8 +581,10 @@ const DiseasePrediction = () => {
                     </Select>
                   </FormControl>
 
-                  <FormControl fullWidth style={{marginBottom:"7px"}}>
-                    <InputLabel id="demo-simple-select-label">Anemia (yes/no).</InputLabel>
+                  <FormControl fullWidth style={{ marginBottom: "7px" }}>
+                    <InputLabel id="demo-simple-select-label">
+                      Anemia (yes/no).
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -548,7 +599,6 @@ const DiseasePrediction = () => {
                     </Select>
                   </FormControl>
                   
-
                 </div>
                 <div className="flex justify-between">
                   <button
@@ -558,15 +608,13 @@ const DiseasePrediction = () => {
                   >
                     Back
                   </button>
-                  <button
-                    type="submit"
-                    className="btn btn-submit py-3 px-7 mt-1"
-                  >
+                  <button type="submit" className="btn btn-next py-3 px-7 mt-1">
                     Submit
                   </button>
                 </div>
               </form>
             </div>
+            
           </div>
           <div className="imgBx d-flex align-items-center justify-content-center mx-auto">
             <img className="img-fluid" src={signupImg} alt="Sign Up Image" />

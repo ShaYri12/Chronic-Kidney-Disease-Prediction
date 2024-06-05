@@ -60,9 +60,9 @@ if __name__ == "__main__":
     
     # Print the prediction result
     if prediction == 'ckd':
-        print("Prediction: The patient is predicted to have chronic kidney disease.")
+        print("The patient is predicted to have chronic kidney disease.")
     else:
-        print("Prediction: The patient is predicted not to have chronic kidney disease.")
+        print("The patient is predicted not to have chronic kidney disease.")
     
     # Print the probability result
     print(f"Probability of Chronic Kidney Disease: {probability_ckd:.2f}%")
