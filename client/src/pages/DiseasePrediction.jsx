@@ -120,7 +120,7 @@ const DiseasePrediction = () => {
   const predictDisease = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/predict", {
+      .post("https://chronic-kidney-disease-prediction-backend.vercel.app/api/predict", {
         symptoms,
       })
       .then((response) => {
