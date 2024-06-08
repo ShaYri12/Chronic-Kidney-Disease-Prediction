@@ -1,31 +1,45 @@
-import express from "express"
-import dotenv from "dotenv"
-import cors from 'cors'
-import cookieParser from "cookie-parser"
-import diseaseRoute from './routes/diseaseRoute.js'
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import diseaseRoute from "./routes/diseaseRoute.js";
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT ||  8000
-const corsOption = {
-    origin: true,
-    credentials: true,
+
+// Define allowed origins (your frontend domain)
+const allowedOrigins = [
+  "https://chronic-kidney-disease-prediction.vercel.app",
+  // Add any additional frontend domains if needed
+];
+
+// Define CORS options
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 };
 
-//testing
-app.get('/',(req, res)=>{
-    res.send("api is working");
-})
+// Testing
+app.get("/", (req, res) => {
+  res.send("API is working");
+});
 
-//middleware
-app.use(express.json())
-app.use(cors(corsOption))
-app.use(cookieParser())
+// Middleware
+app.use(express.json());
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
-//Routes
-app.use('/api/predict', diseaseRoute)
+// Routes
+app.use("/api/predict", diseaseRoute);
 
-
-app.listen(port,()=>{
-    console.log(`server listening on port: ${port}`);
-})
+// Start the server
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port}`);
+});
