@@ -19,8 +19,8 @@ const Information = () => {
             onClick={() => handleActive("heart")}
             className={
               active === "heart"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-14 text-white rounded-lg shadow-md"
-                : "py-3 px-14  rounded-lg "
+                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
+                : "py-3 px-10  rounded-lg "
             }
           >
             Heart Disease
@@ -29,8 +29,8 @@ const Information = () => {
             onClick={() => handleActive("diabetes")}
             className={
               active === "diabetes"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-14 text-white rounded-lg shadow-md"
-                : "py-3 px-14  rounded-lg "
+                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
+                : "py-3 px-10  rounded-lg "
             }
           >
             Diabetes
@@ -39,8 +39,8 @@ const Information = () => {
             onClick={() => handleActive("brain")}
             className={
               active === "brain"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-14 text-white rounded-lg shadow-md"
-                : "py-3 px-14  rounded-lg "
+                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
+                : "py-3 px-10  rounded-lg "
             }
           >
             Brain Tumor
@@ -49,8 +49,8 @@ const Information = () => {
             onClick={() => handleActive("blood")}
             className={
               active === "blood"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-14 text-white rounded-lg shadow-md"
-                : "py-3 px-14  rounded-lg "
+                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
+                : "py-3 px-10  rounded-lg "
             }
           >
             Blood Cancer
@@ -60,8 +60,8 @@ const Information = () => {
             onClick={() => handleActive("asthma")}
             className={
               active === "asthma"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-14 text-white rounded-lg shadow-md"
-                : "py-3 px-14  rounded-lg "
+                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
+                : "py-3 px-10  rounded-lg "
             }
           >
             Asthma

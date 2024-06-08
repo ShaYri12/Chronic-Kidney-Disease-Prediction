@@ -112,7 +112,7 @@ const Navbar = () => {
               />
             </svg>
           </li>
-          <li>
+          <li className="w-max">
             <NavLink
               className={
                 active === "Prediction"
@@ -244,40 +244,65 @@ const Navbar = () => {
             <ul>
               <li className="mb-1">
                 <NavLink
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-[#0b9444] rounded"
-                  to="/"
+                  className={
+                    active === "home"
+                      ? "block p-4 text-sm font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 text-sm font-semibold text-gray-400 rounded"
+                  }
+                  onClick={() => handleLinks("/home")}
+                  to="/home"
                 >
                   Home
                 </NavLink>
               </li>
               <li className="mb-1">
                 <NavLink
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-[#0b9444] rounded"
+                  className={
+                    active === "prediction"
+                      ? "block p-4 text-sm font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 text-sm font-semibold text-gray-400 rounded"
+                  }
+                  onClick={() => handleLinks("prediction")}
                   to="/prediction"
                 >
                   DIsease Prediction
                 </NavLink>
               </li>
-              <li className="mb-1">
+              <li className="mb-1 md:block hidden ">
                 <NavLink
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-[#0b9444] rounded"
-                  to="/"
+                  className={
+                    active === "information"
+                      ? "block p-4 text-sm font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 text-sm font-semibold text-gray-400 rounded"
+                  }
+                  onClick={() => handleLinks("information")}
+                  to="/information"
                 >
                   Information
                 </NavLink>
               </li>
               <li className="mb-1">
                 <NavLink
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-[#0b9444] rounded"
-                  to="/support"
+                className={
+                  active === "support"
+                    ? "block p-4 text-sm font-semibold text-[#0b9444] bg-blue-50  rounded"
+                    : "block p-4 text-sm font-semibold text-gray-400 rounded"
+                }
+                onClick={() => handleLinks("support")}
+                to="/support"
                 >
                   Support
                 </NavLink>
               </li>
               <li className="mb-1">
                 <NavLink
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-[#0b9444] rounded"
-                  to="/"
+                  className={
+                    active === "about"
+                      ? "block p-4 text-sm font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 text-sm font-semibold text-gray-400 rounded"
+                  }
+                  onClick={() => handleLinks("about")}
+                  to="/about"
                 >
                   About
                 </NavLink>

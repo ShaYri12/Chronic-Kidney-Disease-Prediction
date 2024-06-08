@@ -6,15 +6,15 @@ import { MdOnlinePrediction } from "react-icons/md";
 
 const Services = () => {
   return (
-    <section className="bg-gradient-to-b from-white to-[#eafeeb] min-h-screen px-[8%] text-center">
+    <section className="bg-gradient-to-b from-white to-[#eafeeb] min-h-screen px-10 text-center">
       <h1 className="text-3xl font-bold py-3">Our Services</h1>
       <p>
         Empowering Health through Proactive Prediction: Your Partner in Disease
         Prevention.
       </p>
 
-      <div className="grid grid-cols-4 gap-4 py-10">
-        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center py-3 pt-8 px-5 rounded-lg overflow-hidden">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 py-10">
+        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center p-3 rounded-lg overflow-hidden">
           <MdOutlinePersonSearch size={80} className="text-[#89c43f]" />
           <h3 className="text-xl font-semibold ">Predictive Analytics</h3>
           <p className="text-sm pt-3 text-gray-700 ">
@@ -25,7 +25,7 @@ const Services = () => {
           </p>
           <div className="absolute top-[-300px] w-full h-full opacity-20 bg-[#89c43f] duration-500 group-hover:top-0"></div>
         </div>
-        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center py-3 pt-8 px-5 rounded-lg overflow-hidden">
+        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center p-3 rounded-lg overflow-hidden">
           <MdOutlineHealthAndSafety size={80} className="text-[#89c43f]" />
           <h3 className="text-xl font-semibold">Health Assessment</h3>
           <p className="text-sm pt-3 text-gray-700">
@@ -35,7 +35,7 @@ const Services = () => {
           </p>
           <div className="absolute top-[-300px] w-full h-full opacity-20 bg-[#89c43f] duration-500 group-hover:top-0"></div>
         </div>
-        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center py-3 pt-8 px-5 rounded-lg overflow-hidden">
+        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center p-3 rounded-lg overflow-hidden">
           <TbRibbonHealth size={80} className="text-[#89c43f]" />
           <h3 className="text-xl font-semibold">
             Personalized Recommendations
@@ -47,7 +47,7 @@ const Services = () => {
           </p>
           <div className="absolute top-[-300px] w-full h-full opacity-20 bg-[#89c43f] duration-500 group-hover:top-0"></div>
         </div>
-        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center py-3 pt-8 px-5 rounded-lg overflow-hidden">
+        <div className="relative border cursor-default border-[#89c43f] flex flex-col group items-center p-3 rounded-lg overflow-hidden">
           <MdOnlinePrediction size={80} className="text-[#89c43f]" />
           <h3 className="text-xl font-semibold">Predictive Analytics</h3>
           <p className="text-sm pt-3 text-gray-700">

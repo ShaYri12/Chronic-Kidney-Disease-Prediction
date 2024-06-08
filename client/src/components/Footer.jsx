@@ -54,8 +54,8 @@ const Footer = () => {
           </div>
         </div>
         <div class="lg:w-2/6 w-full px-4">
-          <h2 class="title-font font-bold text-white tracking-widest text-lg mb-8">Subscribe</h2>
-          <p class="text-white text-md mb-6 md:text-left text-center font-normal">Sign up for our newsletter and get all the updates first.</p>
+          <h2 class="title-font font-bold text-white tracking-widest text-lg lg:mb-8 mb-3">Subscribe</h2>
+          <p class="text-white text-md lg:mb-6 mb-3 md:text-left text-center font-normal">Sign up for our newsletter and get all the updates first.</p>
           <div class="flex xl:flex-nowrap md:flex-nowrap lg:flex-wrap flex-wrap justify-center items-end md:justify-start">
             <div class="flex justify-center items-center p-4 bg-transparent border-white border focus-within:border-black rounded-full w-full  mx-auto">
             <input
@@ -86,10 +86,10 @@ const Footer = () => {
     <div class="bg-[#0b9444]">
     <div className='max-w-[1440px] w-full h-[2px] mx-auto bg-white'></div>
       <div class="container px-5 py-6 pb-10 mx-auto flex items-center md:flex-row flex-col bg-gray">
-        <p class=" text-sm text-white sm:ml-6 sm:mt-0 mt-4">© 2024 Disease Prediction System. All rights reserved.
-          <Link href="#" rel="noopener noreferrer" class="text-white underline mx-3" target="_blank">Privacy Policy</Link>
-          <Link href="#" rel="noopener noreferrer" class="text-white underline mx-3" target="_blank">Terms of Services</Link>
-          <Link href="#" rel="noopener noreferrer" class="text-white underline mx-3" target="_blank">Cookies Settings</Link>
+        <p class=" text-sm text-white sm:ml-6 sm:mt-0 mt-4 sm:text-left text-center">© 2024 Disease Prediction System. All rights reserved.
+          <Link href="#" rel="noopener noreferrer" class="text-white underline mx-1" target="_blank">Privacy Policy</Link>
+          <Link href="#" rel="noopener noreferrer" class="text-white underline mx-1" target="_blank">Terms of Services</Link>
+          <Link href="#" rel="noopener noreferrer" class="text-white underline mx-1" target="_blank">Cookies Settings</Link>
         </p>
         <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
           <Link href='facebook.com' class="text-white">

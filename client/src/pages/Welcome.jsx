@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Welcome = () => {
   return (
     <div>
-      <div className="grid grid-cols-2 h-screen">
+      <div className="grid grid-cols-1 sm:grid-cols-2 h-screen sm:h-auto">
         <Link to="/home">
           <motion.div
             className="relative group "
@@ -18,13 +18,13 @@ const Welcome = () => {
               duration: 2,
             }}
           >
-            <div className="h-screen w-full">
+            <div className="h-[50vh] sm:h-screen w-full">
               <img src={img1} alt="" className="object-cover w-full h-full" />
             </div>
 
-            <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute font-light text-center inset-0 cursor-pointer bg-black bg-opacity-50 text-white click:opacity-0 group-hover:opacity-0 flex flex-col justify-center items-center transition-opacity duration-300">
               <p className="text-xl p-2">Let's Go to the</p>
-              <h1 className="text-5xl font-semibold">Home Page</h1>
+              <h1 className="text-5xl font-semibold px-2">Home Page</h1>
             </div>
           </motion.div>
         </Link>
@@ -38,16 +38,16 @@ const Welcome = () => {
               duration: 2,
             }}
           >
-            <div className="h-screen w-full">
+            <div className="h-[50vh] sm:h-screen w-full">
               <img
                 src={img2}
                 alt=""
                 className="image object-cover w-full h-full"
               />
             </div>
-            <div className="absolute font-light inset-0 cursor-pointer bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity duration-300">
+            <div className="absolute font-light text-center inset-0 cursor-pointer bg-black click:opacity-0 bg-opacity-50 text-white group-hover:opacity-0 flex flex-col justify-center items-center transition-opacity duration-300">
               <p className="text-xl p-2">Try out the</p>
-              <h1 className="text-5xl font-semibold">Prediction System</h1>
+              <h1 className="text-5xl font-semibold px-2">Prediction System</h1>
             </div>
           </motion.div>
         </Link>

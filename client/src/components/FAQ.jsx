@@ -42,10 +42,10 @@ export default function AccordionUsage() {
   ];
 
   return (
-    <section className="bg-[#eafeeb] py-8 min-h-screen px-[8%] text-center">
+    <section className="bg-[#eafeeb] py-8 min-h-screen md:px-[8%] px-[5%]  text-center">
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold py-3">Frequently Asked Questions</h1>
-        <p className="pb-8 w-[50%]">
+        <p className="pb-8 md:w-[60%] w-full">
           Answers to Your Questions: Find clarity on common queries about our
           disease prediction service, data privacy, accuracy, and more.
         </p>
@@ -53,7 +53,7 @@ export default function AccordionUsage() {
 
       <div>
         {faqs.map((faq, index) => (
-          <Accordion key={index}>
+          <Accordion key={index} className="text-left">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${index + 1}-content`}

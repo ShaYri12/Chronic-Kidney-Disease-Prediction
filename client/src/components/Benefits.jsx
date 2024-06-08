@@ -70,7 +70,7 @@ const Benefit = () => {
         <h1 className="text-3xl font-bold text-center  relative ">
           Features & Benefits
         </h1>
-        <p className="py-2 w-[50%] text-center">
+        <p className="py-2 md:w-[60%] w-full text-center">
           Effortlessly predict diseases and manage health with our intuitive
           symptom checker and personalized assessments.
         </p>

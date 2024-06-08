@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <section className="bg-gradient-to-tr from-white  flex items-center to-white min-h-screen px-[8%] ">
-      <div className="grid grid-cols-2 gap-4 items-center">
+    <section className="bg-gradient-to-tr from-white  flex items-center to-white min-h-screen px-5 py-5">
+      <div className="grid md:grid-cols-2 gap-4 items-center">
         <div className="flex items-center justify-center">
           <img src={hero} alt="" />
         </div>
 
-        <div className="flex px-[4%] flex-col items-start justify-center">
+        <div className="flex px-[4%] flex-col md:items-start items-center justify-center">
           <h1 className="text-3xl font-bold py-3">About Us</h1>
           <p className="text-md text-gray-700 ">
             Welcome to Disease Prediction System! We're committed to

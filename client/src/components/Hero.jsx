@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <section className=" min-h-screen px-[8%] flex items-center justify-center">
-      <div className="grid items-center grid-cols-2 gap-4 ">
-        <div className="">
+      <div className="grid items-center md:grid-cols-2 grid-cols-1 gap-4 md:py-0 py-10 ">
+        <div className="text-center md:text-left">
           <h1 className="text-3xl font-bold py-3">
             Your Health is Our Priority Get Instant Disease Predictions
           </h1>
@@ -16,7 +16,7 @@ const Hero = () => {
             helping you stay proactive about your health. Begin your journey to
             better health with just a few clicks.
           </p>
-          <div className="pt-8 ">
+          <div className="pt-8 flex items-start  justify-center items-center md:justify-start gap-y-2 flex-wrap">
             <Link
               to="/prediction"
               className="bg-[#0b9444] mr-4 py-3 px-5 text-white font-semibold rounded-lg"
