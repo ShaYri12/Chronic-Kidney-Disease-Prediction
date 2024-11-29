@@ -5,14 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginImg from "../../public/Images/newsletter.gif";
 import signupImg from "../../public/Images/hero.gif";
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 
 const ProgressBar = ({ currentStep, totalSteps }) => {
-  const icons = [1,2,3,4];
+  const icons = [1, 2, 3, 4];
 
   return (
     <div className="progress-bar">
@@ -42,7 +42,6 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
     </div>
   );
 };
-
 
 const DiseasePrediction = () => {
   useEffect(() => {
@@ -77,10 +76,10 @@ const DiseasePrediction = () => {
     cad: "", // Coronary Artery Disease
     appet: "", // Appetite
     pe: "", // Pedal Edema
-    ane: "" // Anemia
+    ane: "", // Anemia
   });
 
-  const [prediction, setPrediction] = useState(null);
+  const [predictions, setPredictions] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -120,14 +119,15 @@ const DiseasePrediction = () => {
   const predictDisease = (e) => {
     e.preventDefault();
     axios
-      .post("https://chronic-kidney-disease-prediction-backend.vercel.app/api/predict", {
+      .post("http://localhost:8000/api/predict", {
         symptoms,
       })
       .then((response) => {
-        setPrediction(response.data.result);
+        setPredictions(response.data.result);
         navigate("/prediction-result", {
-          state: { prediction: response.data.result },
+          state: { predictions: response.data.result },
         });
+        console.log(predictions);
       })
       .catch((error) => {
         alert("An Error Occured");
@@ -206,7 +206,7 @@ const DiseasePrediction = () => {
                   onChange={handleInputChange}
                   required
                 />
-                
+
                 <FormControl fullWidth>
                   <InputLabel className="w-max" id="demo-simple-select-label">
                     Albumin content in urine.
@@ -362,7 +362,7 @@ const DiseasePrediction = () => {
                     onChange={handleInputChange}
                     required
                   />
-                  
+
                   <TextField
                     fullWidth
                     id="outlined-basic"
@@ -393,7 +393,6 @@ const DiseasePrediction = () => {
             <div className={`form-step ${currentStep === 3 ? "active" : ""}`}>
               <form onSubmit={handleNextStep}>
                 <div className="d-flex gap-2 space-y-4 pb-3">
-
                   <TextField
                     fullWidth
                     id="outlined-basic"
@@ -419,7 +418,7 @@ const DiseasePrediction = () => {
                     onChange={handleInputChange}
                     required
                   />
-                  
+
                   <TextField
                     fullWidth
                     id="outlined-basic"
@@ -432,7 +431,7 @@ const DiseasePrediction = () => {
                     onChange={handleInputChange}
                     required
                   />
-                  
+
                   <TextField
                     fullWidth
                     id="outlined-basic"
@@ -471,7 +470,6 @@ const DiseasePrediction = () => {
                     onChange={handleInputChange}
                     required
                   />
-                  
                 </div>
                 <div className="flex justify-between">
                   <button
@@ -490,7 +488,6 @@ const DiseasePrediction = () => {
             <div className={`form-step ${currentStep === 4 ? "active" : ""}`}>
               <form onSubmit={handleSubmit}>
                 <div className="d-flex gap-2 space-y-4 pb-3">
-
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Hypertension (yes/no).
@@ -526,7 +523,7 @@ const DiseasePrediction = () => {
                       <MenuItem value="yes">Yes</MenuItem>
                     </Select>
                   </FormControl>
-                  
+
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Coronary artery disease (yes/no).
@@ -544,7 +541,7 @@ const DiseasePrediction = () => {
                       <MenuItem value="yes">Yes</MenuItem>
                     </Select>
                   </FormControl>
-                  
+
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Appetite (Good/Poor).
@@ -598,7 +595,6 @@ const DiseasePrediction = () => {
                       <MenuItem value="yes">Yes</MenuItem>
                     </Select>
                   </FormControl>
-                  
                 </div>
                 <div className="flex justify-between">
                   <button
@@ -614,7 +610,6 @@ const DiseasePrediction = () => {
                 </div>
               </form>
             </div>
-            
           </div>
           <div className="imgBx d-flex align-items-center justify-content-center mx-auto">
             <img className="img-fluid" src={signupImg} alt="Sign Up Image" />

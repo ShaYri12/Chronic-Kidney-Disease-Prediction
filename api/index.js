@@ -10,7 +10,8 @@ const app = express();
 // Define allowed origins (your frontend domain)
 const allowedOrigins = [
   "https://chronic-kidney-disease-prediction.vercel.app",
-   "https://chronic-kidney-disease-prediction-backend.vercel.app" 
+  "https://chronic-kidney-disease-prediction-backend.vercel.app",
+  "http://localhost:5173",
 ];
 
 // Define CORS options

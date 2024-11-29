@@ -1,68 +1,54 @@
-import sys
-import numpy as np
 import joblib
-import warnings
 import pandas as pd
+import numpy as np
+import os
 
-# Suppress UserWarning from scikit-learn
-warnings.filterwarnings("ignore", category=UserWarning)
+# Directory with models
+models_dir = './Trained_Models'
 
-# Load the trained model
-model = joblib.load('./Trained_Models/ckd_model.pkl')
-
-# Define the feature columns used in the training script
-feature_columns = ['age', 'bp', 'sg', 'al', 'su', 'rbc', 'pc', 'pcc', 'ba', 'bgr', 'bu', 'sc', 'sod', 'pot', 'hemo', 'pcv', 'wc', 'rc', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
+# Feature columns used during training
+feature_columns = ['age', 'bp', 'sg', 'al', 'su', 'rbc', 'pc', 'pcc', 'ba', 'bgr', 'bu', 'sc', 'sod', 'pot',
+                   'hemo', 'pcv', 'wc', 'rc', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
 
 def predict_ckd(input_data):
-    # Convert the input data to a pandas DataFrame
+    # Convert input data to DataFrame
     input_df = pd.DataFrame([input_data], columns=feature_columns)
-    
-    # Ensure the data types match the training data
-    numeric_features = model.named_steps['preprocessor'].transformers_[0][2]
-    categorical_features = model.named_steps['preprocessor'].transformers_[1][2]
 
-    for col in numeric_features:
-        input_df[col] = input_df[col].astype(float)
-    for col in categorical_features:
-        input_df[col] = input_df[col].astype(object)
-    
-    # Make predictions for the input data
-    prediction = model.predict(input_df)
-    probability = model.predict_proba(input_df)
-    
-    # Get the probability of CKD (assuming 'ckd' is the positive class)
-    index_of_ckd_class = list(model.classes_).index('ckd')
-    probability_ckd = probability[0][index_of_ckd_class] * 100
-    
-    # Return the prediction and probability
-    return prediction[0], probability_ckd
+    predictions = []
+    for model_file in os.listdir(models_dir):
+        if model_file.endswith('.pkl'):
+            # Load the model
+            model = joblib.load(os.path.join(models_dir, model_file))
+            algorithm_name = model_file.replace('_model.pkl', '').replace('_', ' ').title()
 
-if __name__ == "__main__":
-    # Check if the input data is provided as a command-line argument
-    if len(sys.argv) != 2:
-        print("Usage: python model.py '[80.0,1.02,1.0,0.0,1.0,36.0,1.2,137.53,4.63,15.4,7800.0,5.2,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]'")
-        sys.exit(1)
-    
-    # Parse the input data from the command-line argument
-    try:
-        input_data = eval(sys.argv[1])
-    except:
-        print("Error: Invalid input data. Please provide the input data as a list.")
-        sys.exit(1)
-    
-    # Verify that the input data has the correct number of features
-    if len(input_data) != len(feature_columns):
-        print(f"Error: Expected {len(feature_columns)} features, but got {len(input_data)}.")
-        sys.exit(1)
-    
-    # Call the function to predict CKD
-    prediction, probability_ckd = predict_ckd(input_data)
-    
-    # Print the prediction result
-    if prediction == 'ckd':
-        print("The patient is predicted to have chronic kidney disease.")
-    else:
-        print("The patient is predicted not to have chronic kidney disease.")
-    
-    # Print the probability result
-    print(f"Probability of Chronic Kidney Disease: {probability_ckd:.2f}%")
+            # Ensure data types
+            numeric_features = model.named_steps['preprocessor'].transformers_[0][2]
+            categorical_features = model.named_steps['preprocessor'].transformers_[1][2]
+            input_df[numeric_features] = input_df[numeric_features].astype(float)
+            input_df[categorical_features] = input_df[categorical_features].astype(object)
+
+            # Predict
+            prediction = model.predict(input_df)[0]
+            probabilities = model.predict_proba(input_df)[0]  # Probabilities for each class
+
+            # Append the result to the array
+            predictions.append({
+                "algorithm": algorithm_name,
+                "prediction": prediction,
+                "probabilities": dict(zip(model.classes_, probabilities))
+            })
+
+    return predictions
+
+# Example usage
+input_sample = [48, 80, 1.02, 1.0, 0.0, 'normal', 'normal', 'notpresent', 'notpresent', 121.0, 36.0, 1.2, 137.53,
+                4.63, 15.4, 44, 7800, 5.2, 'yes', 'no', 'no', 'good', 'no', 'no']
+results = predict_ckd(input_sample)
+
+# Output results
+for result in results:
+    print(f"\nAlgorithm: {result['algorithm']}")
+    print(f"Prediction: {'Unfortunately, Chronic Kidney Disease' if result['prediction'] == 'ckd' else 'Great news! No Chronic Kidney Disease'}")
+    print("Probabilities:")
+    for label, prob in result['probabilities'].items():
+        print(f"  {label}: {prob * 100:.2f}%")
