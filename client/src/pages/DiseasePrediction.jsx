@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import api from "../utils/api";
 
 const ProgressBar = ({ currentStep, totalSteps }) => {
   const icons = [1, 2, 3, 4];
@@ -118,20 +119,22 @@ const DiseasePrediction = () => {
 
   const predictDisease = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/predict", {
+
+    api
+      .post("/predict", {
+        // Use the API instance
         symptoms,
       })
       .then((response) => {
-        setPredictions(response.data.result);
+        setPredictions(response.data.result); // Update state with predictions
         navigate("/prediction-result", {
-          state: { predictions: response.data.result },
+          state: { predictions: response.data.result }, // Pass data to the next page
         });
-        console.log(predictions);
+        console.log(response.data.result); // Log predictions
       })
       .catch((error) => {
-        alert("An Error Occured");
-        console.error("Error predicting disease:", error);
+        alert("An Error Occurred"); // Show an error message to the user
+        console.error("Error predicting disease:", error); // Log the error
       });
   };
 
