@@ -23,18 +23,18 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
+  credentials: true, // Set this only if your requests are using cookies or authentication headers.
 };
+
+// Apply CORS middleware globally (before other routes and middleware)
+app.use(cors(corsOptions)); // Make sure CORS middleware is applied first
+app.use(express.json());
+app.use(cookieParser());
 
 // Testing
 app.get("/", (req, res) => {
   res.send("API is working");
 });
-
-// Middleware
-app.use(express.json());
-app.use(cors(corsOptions));
-app.use(cookieParser());
 
 // Routes
 app.use("/api/predict", diseaseRoute);
