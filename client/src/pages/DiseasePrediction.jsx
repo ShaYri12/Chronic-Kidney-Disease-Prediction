@@ -115,12 +115,18 @@ const DiseasePrediction = () => {
     const container = document.querySelector(".container");
     container.classList.toggle("active");
   };
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    },
+  };
 
   const predictDisease = (e) => {
     e.preventDefault();
 
     api
-      .post("/predict", {
+      .post("/predict", config, {
         // Use the API instance
         symptoms,
       })
