@@ -7,15 +7,18 @@ import diseaseRoute from "./routes/diseaseRoute.js";
 dotenv.config();
 const app = express();
 
-// Allow all origins for testing (not recommended for production)
+// Proper CORS Configuration
 const corsOptions = {
-  origin: true, // Allow all origins for testing
-  credentials: true, // Enable credentials if needed
+  origin: true, // Allow only your frontend's URL
+  credentials: true, // Enable credentials for secure cookies or authorization headers
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow specific methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
 };
 
-// Apply CORS middleware globally
-app.use(cors(corsOptions)); // Make sure it's applied before any other routes
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
 
@@ -24,7 +27,7 @@ app.get("/test-cors", (req, res) => {
   res.json({ message: "CORS is working!" });
 });
 
-// Testing
+// Health check route
 app.get("/", (req, res) => {
   res.send("API is working");
 });
