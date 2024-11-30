@@ -119,31 +119,20 @@ const DiseasePrediction = () => {
   const predictDisease = (e) => {
     e.preventDefault();
 
-    // Make the POST request using fetch
-    fetch(
-      "https://chronic-kidney-disease-prediction-zetp.vercel.app/api/predict",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Add any necessary headers like authorization here
-        },
-        body: JSON.stringify({
-          symptoms, // Assuming symptoms is an object you want to send
-        }),
-      }
-    )
-      .then((response) => response.json()) // Parse the JSON response
-      .then((data) => {
-        setPredictions(data.result); // Update state with predictions
+    api
+      .post("/predict", {
+        symptoms,
+      })
+      .then((response) => {
+        setPredictions(response.data.result); // Update state with predictions
         navigate("/prediction-result", {
-          state: { predictions: data.result }, // Pass data to the next page
+          state: { predictions: response.data.result }, // Pass data to the next page
         });
-        console.log(data.result); // Log predictions
+        console.log(response.data.result); // Log predictions
       })
       .catch((error) => {
-        alert("An error occurred");
-        console.error("Error predicting disease:", error);
+        alert("An Error Occurred"); // Show an error message to the user
+        console.error("Error predicting disease:", error); // Log the error
       });
   };
 
