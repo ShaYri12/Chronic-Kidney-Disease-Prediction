@@ -7,29 +7,22 @@ import diseaseRoute from "./routes/diseaseRoute.js";
 dotenv.config();
 const app = express();
 
-// Define allowed origins (your frontend domain)
-const allowedOrigins = [
-  "https://chronic-kidney-disease-prediction-frontend.vercel.app",
-  "https://chronic-kidney-disease-prediction-backend.vercel.app",
-  "http://localhost:5173",
-];
-
-// Define CORS options
+// Allow all origins for testing (not recommended for production)
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // Set this only if your requests are using cookies or authentication headers.
+  origin: true, // Allow all origins for testing
+  credentials: true, // Enable credentials if needed
 };
 
-// Apply CORS middleware globally (before other routes and middleware)
-app.use(cors(corsOptions)); // Make sure CORS middleware is applied first
+// Apply CORS middleware globally
+app.use(cors(corsOptions)); // Make sure it's applied before any other routes
+
 app.use(express.json());
 app.use(cookieParser());
+
+// Test route for debugging CORS headers
+app.get("/test-cors", (req, res) => {
+  res.json({ message: "CORS is working!" });
+});
 
 // Testing
 app.get("/", (req, res) => {
