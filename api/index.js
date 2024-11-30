@@ -9,7 +9,7 @@ const app = express();
 
 // Proper CORS Configuration
 const corsOptions = {
-  origin: true, // Allow only your frontend's URL
+  origin: "https://your-frontend-url.vercel.app", // Replace with your actual frontend URL
   credentials: true, // Enable credentials for secure cookies or authorization headers
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow specific methods
   allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
@@ -17,6 +17,9 @@ const corsOptions = {
 
 // Apply CORS middleware
 app.use(cors(corsOptions));
+
+// Handle preflight requests for all routes
+app.options("*", cors(corsOptions)); // This must come before your routes
 
 // Middleware
 app.use(express.json());
