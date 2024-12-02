@@ -9,7 +9,7 @@ const app = express();
 
 // Proper CORS Configuration
 const corsOptions = {
-  origin: "https://your-frontend-url.vercel.app", // Replace with your actual frontend URL
+  origin: true, // Replace with your actual frontend URL
   credentials: true, // Enable credentials for secure cookies or authorization headers
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow specific methods
   allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers

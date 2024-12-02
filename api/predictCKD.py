@@ -1,7 +1,7 @@
 import joblib
 import pandas as pd
-import numpy as np
 import os
+import sys
 
 # Directory with models
 models_dir = './Trained_Models'
@@ -40,15 +40,32 @@ def predict_ckd(input_data):
 
     return predictions
 
-# Example usage
-input_sample = [48, 80, 1.02, 1.0, 0.0, 'normal', 'normal', 'notpresent', 'notpresent', 121.0, 36.0, 1.2, 137.53,
-                4.63, 15.4, 44, 7800, 5.2, 'yes', 'no', 'no', 'good', 'no', 'no']
-results = predict_ckd(input_sample)
+def main():
+    # Check if enough arguments are provided
+    if len(sys.argv) != len(feature_columns) + 1:
+        print(f"Usage: {sys.argv[0]} {' '.join(feature_columns)}")
+        sys.exit(1)
 
-# Output results
-for result in results:
-    print(f"\nAlgorithm: {result['algorithm']}")
-    print(f"Prediction: {'Unfortunately, Chronic Kidney Disease' if result['prediction'] == 'ckd' else 'Great news! No Chronic Kidney Disease'}")
-    print("Probabilities:")
-    for label, prob in result['probabilities'].items():
-        print(f"  {label}: {prob * 100:.2f}%")
+    # Convert the command-line arguments to input data
+    input_data = sys.argv[1:]
+
+    # Map categorical values to their appropriate types
+    input_data[5:9] = [str(x).lower() for x in input_data[5:9]]  # `rbc`, `pc`, `pcc`, `ba` are categorical
+    input_data[17:23] = [str(x).lower() for x in input_data[17:23]]  # `htn`, `dm`, `cad`, `appet`, `pe`, `ane` are categorical
+    
+    # Convert numeric inputs to appropriate data types
+    input_data = [float(x) if x.replace('.', '', 1).isdigit() else x for x in input_data]
+
+    # Call the function to predict CKD using all models
+    results = predict_ckd(input_data)
+
+    # Output results
+    for result in results:
+        print(f"\nAlgorithm: {result['algorithm']}")
+        print(f"Prediction: {'Unfortunately, Chronic Kidney Disease' if result['prediction'] == 'ckd' else 'Great news! No Chronic Kidney Disease'}")
+        print("Probabilities:")
+        for label, prob in result['probabilities'].items():
+            print(f"  {label}: {prob * 100:.2f}%")
+
+if __name__ == "__main__":
+    main()

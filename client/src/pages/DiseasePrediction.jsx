@@ -53,30 +53,30 @@ const DiseasePrediction = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [symptoms, setSymptoms] = useState({
-    age: "",
-    bp: "", // Blood Pressure
-    sg: "", // Specific Gravity
-    al: "", // Albumin
-    su: "", // Sugar
-    rbc: "", // Red Blood Cells
-    pc: "", // Pus Cell
-    pcc: "", // Pus Cell Clumps
-    ba: "", // Bacteria
-    bgr: "", // Blood Glucose Random
-    bu: "", // Blood Urea
-    sc: "", // Serum Creatinine
-    sod: "", // Sodium
-    pot: "", // Potassium
-    hemo: "", // Hemoglobin
-    pcv: "", // Packed Cell Volume
-    wc: "", // White Blood Cell Count
-    rc: "", // Red Blood Cell Count
-    htn: "", // Hypertension
-    dm: "", // Diabetes Mellitus
-    cad: "", // Coronary Artery Disease
-    appet: "", // Appetite
-    pe: "", // Pedal Edema
-    ane: "", // Anemia
+    age: "", // (number)
+    bp: "", // Blood Pressure (number)
+    sg: "", // Specific Gravity (number)
+    al: "", // Albumin (number)
+    su: "", // Sugar (number)
+    rbc: "", // Red Blood Cells (string)
+    pc: "", // Pus Cell (string)
+    pcc: "", // Pus Cell Clumps (string)
+    ba: "", // Bacteria (string)
+    bgr: "", // Blood Glucose Random (number)
+    bu: "", // Blood Urea (number)
+    sc: "", // Serum Creatinine (number)
+    sod: "", // Sodium (number)
+    pot: "", // Potassium (number)
+    hemo: "", // Hemoglobin (number)
+    pcv: "", // Packed Cell Volume (number)
+    wc: "", // White Blood Cell Count (number)
+    rc: "", // Red Blood Cell Count (number)
+    htn: "", // Hypertension (string)
+    dm: "", // Diabetes Mellitus (string)
+    cad: "", // Coronary Artery Disease (string)
+    appet: "", // Appetite (string)
+    pe: "", // Pedal Edema (string)
+    ane: "", // Anemia (string)
   });
 
   const [predictions, setPredictions] = useState(null);
@@ -89,6 +89,7 @@ const DiseasePrediction = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     predictDisease(e);
+    console.log(symptoms);
   };
 
   const handleSignIn = (e) => {
@@ -123,6 +124,7 @@ const DiseasePrediction = () => {
     api
       .post("/predict", { symptoms })
       .then((response) => {
+        console.log(symptoms);
         setLoading(false); // Hide spinner
         setPredictions(response.data.result); // Update state with predictions
         navigate("/prediction-result", {
