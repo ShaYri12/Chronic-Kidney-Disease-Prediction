@@ -69,7 +69,7 @@ const Navbar = () => {
         >
           <img src={LOGO} alt="" className="md:h-14 h-9" />
           <div className="flex flex-col justify-center">
-            <p className="md:text-md text-base text-[#0b9444]">DISEASE</p>
+            <p className="md:text-base text-base text-[#0b9444]">DISEASE</p>
             <p className="md:text-sm text-[14px] text-[#89c43f]">
               Prediction System
             </p>
@@ -78,8 +78,8 @@ const Navbar = () => {
         <div className="lg:hidden">
           <button className="navbar-burger flex items-center text-[#0b9444] p-3">
             <svg
-              className="block h-4 w-4 fill-current"
-              viewBox="0 0 20 20"
+              className="block h-6 w-6 fill-current"
+              viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <title>Mobile menu</title>
@@ -87,13 +87,13 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-        <ul className="hidden absolute top-1/2 right-10 transform -translate-y-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6 w-max">
+        <ul className="hidden absolute top-1/2 xl:left-1/2 xl:right-auto right-10 transform -translate-y-1/2 xl:-translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6 w-max">
           <li>
             <NavLink
               className={
                 active === "home"
-                  ? "lg:text-lg md:text-md text-sm text-[#0b9444] font-bold"
-                  : "lg:text-lg md:text-md text-sm text-gray-400 hover:text-[#89c43f]"
+                  ? "xl:text-lg md:text-base text-sm text-[#0b9444] font-bold"
+                  : "xl:text-lg md:text-base text-sm text-gray-400 hover:text-[#89c43f]"
               }
               onClick={() => handleLinks("Home")}
               to="/home"
@@ -121,8 +121,8 @@ const Navbar = () => {
             <NavLink
               className={
                 active === "prediction"
-                  ? "lg:text-lg md:text-md text-sm text-[#0b9444] font-bold"
-                  : "lg:text-lg md:text-md text-sm text-gray-400 hover:text-[#89c43f]"
+                  ? "xl:text-lg md:text-base text-sm text-[#0b9444] font-bold"
+                  : "xl:text-lg md:text-base text-sm text-gray-400 hover:text-[#89c43f]"
               }
               onClick={() => handleLinks("prediction")}
               to="/prediction"
@@ -150,8 +150,8 @@ const Navbar = () => {
             <NavLink
               className={
                 active === "information"
-                  ? "lg:text-lg md:text-md text-sm text-[#0b9444] font-bold"
-                  : "lg:text-lg md:text-md text-sm text-gray-400 hover:text-[#89c43f]"
+                  ? "xl:text-lg md:text-base text-sm text-[#0b9444] font-bold"
+                  : "xl:text-lg md:text-base text-sm text-gray-400 hover:text-[#89c43f]"
               }
               onClick={() => handleLinks("information")}
               to="/information"
@@ -179,8 +179,8 @@ const Navbar = () => {
             <NavLink
               className={
                 active === "support"
-                  ? "lg:text-lg md:text-md text-sm text-[#0b9444] font-bold"
-                  : "lg:text-lg md:text-md text-sm text-gray-400 hover:text-[#89c43f]"
+                  ? "xl:text-lg md:text-base text-sm text-[#0b9444] font-bold"
+                  : "xl:text-lg md:text-base text-sm text-gray-400 hover:text-[#89c43f]"
               }
               onClick={() => handleLinks("support")}
               to="/support"
@@ -208,8 +208,8 @@ const Navbar = () => {
             <NavLink
               className={
                 active === "about"
-                  ? "lg:text-lg md:text-md text-sm text-[#0b9444] font-bold"
-                  : "lg:text-lg md:text-md text-sm text-gray-400 hover:text-[#89c43f]"
+                  ? "xl:text-lg md:text-base text-sm text-[#0b9444] font-bold"
+                  : "xl:text-lg md:text-base text-sm text-gray-400 hover:text-[#89c43f]"
               }
               onClick={() => handleLinks("about")}
               to="/about"
@@ -256,8 +256,8 @@ const Navbar = () => {
                 <NavLink
                   className={
                     active === "home"
-                      ? "block p-4 md:text-md font-semibold text-[#0b9444] bg-blue-50  rounded"
-                      : "block p-4 md:text-md font-semibold text-gray-400 rounded"
+                      ? "block p-4 md:text-base font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 md:text-base font-semibold text-gray-400 rounded"
                   }
                   onClick={() => handleLinks("/home")}
                   to="/home"
@@ -269,8 +269,8 @@ const Navbar = () => {
                 <NavLink
                   className={
                     active === "prediction"
-                      ? "block p-4 md:text-md font-semibold text-[#0b9444] bg-blue-50  rounded"
-                      : "block p-4 md:text-md font-semibold text-gray-400 rounded"
+                      ? "block p-4 md:text-base font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 md:text-base font-semibold text-gray-400 rounded"
                   }
                   onClick={() => handleLinks("prediction")}
                   to="/prediction"
@@ -282,8 +282,8 @@ const Navbar = () => {
                 <NavLink
                   className={
                     active === "information"
-                      ? "block p-4 md:text-md font-semibold text-[#0b9444] bg-blue-50  rounded"
-                      : "block p-4 md:text-md font-semibold text-gray-400 rounded"
+                      ? "block p-4 md:text-base font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 md:text-base font-semibold text-gray-400 rounded"
                   }
                   onClick={() => handleLinks("information")}
                   to="/information"
@@ -295,8 +295,8 @@ const Navbar = () => {
                 <NavLink
                   className={
                     active === "support"
-                      ? "block p-4 md:text-md font-semibold text-[#0b9444] bg-blue-50  rounded"
-                      : "block p-4 md:text-md font-semibold text-gray-400 rounded"
+                      ? "block p-4 md:text-base font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 md:text-base font-semibold text-gray-400 rounded"
                   }
                   onClick={() => handleLinks("support")}
                   to="/support"
@@ -308,8 +308,8 @@ const Navbar = () => {
                 <NavLink
                   className={
                     active === "about"
-                      ? "block p-4 md:text-md font-semibold text-[#0b9444] bg-blue-50  rounded"
-                      : "block p-4 md:text-md font-semibold text-gray-400 rounded"
+                      ? "block p-4 md:text-base font-semibold text-[#0b9444] bg-blue-50  rounded"
+                      : "block p-4 md:text-base font-semibold text-gray-400 rounded"
                   }
                   onClick={() => handleLinks("about")}
                   to="/about"
