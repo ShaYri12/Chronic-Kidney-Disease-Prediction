@@ -1,621 +1,331 @@
+"use client";
+
 import React, { useState } from "react";
-import asthma from "../../public/Images/asthma.png";
-import heart from "../../public/Images/heart.png";
-import diabetes from "../../public/Images/diabetes.png";
-import Blood from "../../public/Images/blood-cancer1.png";
-import brain from "../../public/Images/Brain_Cancer2.png";
 
-const Information = () => {
-  const [active, setActive] = useState("heart");
+const stages = [
+  {
+    name: "Stage 1",
+    description: "Kidney damage with normal or high GFR (≥90 mL/min/1.73 m²)",
+    symptoms: [
+      "Usually no symptoms",
+      "High blood pressure",
+      "Protein in urine (proteinuria)",
+      "Normal or increased GFR",
+      "Microalbuminuria (in diabetics)",
+    ],
+    precautions: [
+      "Regular exercise",
+      "Healthy diet low in salt and protein",
+      "Blood pressure control",
+      "Regular monitoring of kidney function",
+      "Manage underlying conditions (e.g., diabetes)",
+      "Avoid nephrotoxic medications",
+    ],
+    treatment: [
+      "Lifestyle changes",
+      "Blood pressure medication if needed",
+      "Regular check-ups",
+      "Manage underlying conditions",
+      "ACE inhibitors or ARBs to protect kidneys",
+    ],
+    recommendations: [
+      "Quit smoking",
+      "Maintain healthy weight",
+      "Regular exercise",
+      "Limited alcohol intake",
+      "Stay hydrated",
+      "Control blood sugar (for diabetics)",
+    ],
+  },
+  {
+    name: "Stage 2",
+    description: "Mild CKD (GFR = 60-89 mL/min/1.73 m²)",
+    symptoms: [
+      "Usually no symptoms",
+      "Fatigue",
+      "Changes in urination",
+      "Mild weakness",
+      "Loss of appetite",
+    ],
+    precautions: [
+      "Monitor blood pressure",
+      "Control blood sugar",
+      "Regular kidney function tests",
+      "Healthy diet low in salt and protein",
+      "Limit phosphorus and potassium intake",
+      "Avoid nephrotoxic substances",
+    ],
+    treatment: [
+      "Medications for underlying conditions",
+      "Diet modifications",
+      "Regular monitoring of kidney function",
+      "Exercise program",
+      "Blood pressure control",
+      "Manage cardiovascular risk factors",
+    ],
+    recommendations: [
+      "Reduce salt intake",
+      "Stay hydrated",
+      "Regular exercise",
+      "Stress management",
+      "Maintain healthy weight",
+      "Annual flu vaccination",
+    ],
+  },
+  {
+    name: "Stage 3",
+    description: "Moderate CKD (GFR = 30-59 mL/min/1.73 m²)",
+    symptoms: [
+      "Fatigue",
+      "Fluid retention",
+      "Changes in urination",
+      "Sleep problems",
+      "Decreased appetite",
+      "Mild anemia",
+    ],
+    precautions: [
+      "Strict diet control",
+      "Regular medication",
+      "Monitor fluid intake",
+      "Blood pressure control",
+      "Avoid NSAIDs and other nephrotoxic drugs",
+      "Regular monitoring of electrolytes",
+    ],
+    treatment: [
+      "Dietary restrictions (low salt, low protein)",
+      "Multiple medications",
+      "Regular monitoring of kidney function",
+      "Anemia management",
+      "Treatment of metabolic acidosis",
+      "Management of mineral and bone disorders",
+    ],
+    recommendations: [
+      "Low sodium diet",
+      "Limited protein intake",
+      "Regular exercise as tolerated",
+      "Avoid nephrotoxic substances",
+      "Pneumococcal vaccination",
+      "Bone density screening",
+    ],
+  },
+  {
+    name: "Stage 4",
+    description: "Severe CKD (GFR = 15-29 mL/min/1.73 m²)",
+    symptoms: [
+      "Severe fatigue",
+      "Nausea",
+      "Vomiting",
+      "Bone pain",
+      "Difficulty concentrating",
+      "Numbness or tingling in toes or fingers",
+    ],
+    precautions: [
+      "Strict diet",
+      "Fluid restrictions",
+      "Regular monitoring of kidney function",
+      "Medication adherence",
+      "Careful management of blood pressure",
+      "Avoid high-potassium foods",
+    ],
+    treatment: [
+      "Specialized renal diet",
+      "Multiple medications",
+      "Prepare for renal replacement therapy",
+      "Regular nephrology visits",
+      "Erythropoiesis-stimulating agents for anemia",
+      "Management of secondary hyperparathyroidism",
+    ],
+    recommendations: [
+      "Very low sodium diet",
+      "Limited fluid intake",
+      "Careful medication management",
+      "Dialysis preparation and education",
+      "Consider transplant evaluation",
+      "Advance care planning",
+    ],
+  },
+  {
+    name: "Stage 5",
+    description: "Kidney Failure (GFR < 15 mL/min/1.73 m²)",
+    symptoms: [
+      "Extreme fatigue",
+      "Difficulty breathing",
+      "Heart problems",
+      "Mental confusion",
+      "Severe nausea and vomiting",
+      "Metallic taste in mouth",
+    ],
+    precautions: [
+      "Very strict diet",
+      "Careful fluid management",
+      "Infection prevention",
+      "Emergency preparedness",
+      "Close monitoring of electrolytes",
+      "Avoid high-potassium and high-phosphorus foods",
+    ],
+    treatment: [
+      "Dialysis (hemodialysis or peritoneal dialysis)",
+      "Kidney transplant evaluation",
+      "Complex medication regimen",
+      "Regular hospital visits",
+      "Management of complications (anemia, bone disease, cardiovascular disease)",
+      "Nutritional support",
+    ],
+    recommendations: [
+      "Follow dialysis schedule strictly",
+      "Strict diet compliance",
+      "Infection prevention measures",
+      "Emergency contact plan",
+      "Regular exercise as tolerated",
+      "Psychological support",
+    ],
+  },
+];
 
-  const handleActive = (item) => {
-    setActive(item);
-  };
+export default function CKDStages() {
+  const [activeTab, setActiveTab] = useState("Stage 1");
+
   return (
-    <div className="bg-[#0b9444] min-h-screen">
-      <div className="flex flex-col items-center justify-center py-4">
-        <div className="flex justify-between border-[1px]  bg-white/50 shadow-md border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-          <button
-            onClick={() => handleActive("heart")}
-            className={
-              active === "heart"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
-                : "py-3 px-10  rounded-lg "
-            }
-          >
-            Heart Disease
-          </button>
-          <button
-            onClick={() => handleActive("diabetes")}
-            className={
-              active === "diabetes"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
-                : "py-3 px-10  rounded-lg "
-            }
-          >
-            Diabetes
-          </button>
-          <button
-            onClick={() => handleActive("brain")}
-            className={
-              active === "brain"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
-                : "py-3 px-10  rounded-lg "
-            }
-          >
-            Brain Tumor
-          </button>
-          <button
-            onClick={() => handleActive("blood")}
-            className={
-              active === "blood"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
-                : "py-3 px-10  rounded-lg "
-            }
-          >
-            Blood Cancer
-          </button>
-
-          <button
-            onClick={() => handleActive("asthma")}
-            className={
-              active === "asthma"
-                ? "bg-gradient-to-r font-semibold from-[#89c43f] to-[#bbc43f] py-3 px-10 text-white rounded-lg shadow-md"
-                : "py-3 px-10  rounded-lg "
-            }
-          >
-            Asthma
-          </button>
+    <div className="min-h-screen bg-green-50 py-8 px-4 relative overflow-hidden">
+      <div className="max-w-[1280px] mx-auto relative z-10">
+        <div className="mb-8 text-center">
+          <p className="md:text-lg text-green-800 mb-4">
+            Chronic Kidney Disease (CKD) is a progressive condition
+            characterized by the gradual loss of kidney function over time. It
+            affects the kidneys' ability to filter waste and excess fluids from
+            the blood, potentially leading to complications affecting overall
+            health. CKD is often associated with other conditions such as
+            diabetes and hypertension.
+          </p>
         </div>
-        {active === "asthma" && (
-          <div className="py-20 px-[8%] relative">
-            <div
-              className="absolute h-[100%] inset-0 bg-cover w-[50%] bg-center"
-              style={{
-                backgroundImage: `url(${asthma})`,
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            ></div>
-            <div className="grid grid-cols-2 gap-20">
-              <div>
-                <div className="border-[1px] max-w-[90%] py-5 px-8 bg-white/50 opacity-50  hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Common Symptoms
-                  </h2>
-                  <ul>
-                    <li>* Shortness of breath.</li>
-                    <li>* Chest tightness or pain.</li>
-                    <li>
-                      * Wheezing when exhaling (especially common in children).
-                    </li>
-                    <li>
-                      * Trouble sleeping caused by shortness of breath,
-                      coughing, or wheezing.
-                    </li>
-                    <li>
-                      * Coughing or wheezing attacks that are worsened by a
-                      respiratory virus, such as a cold or the flu.
-                    </li>
-                  </ul>
-                </div>
-                <div className="border-[1px] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Specific Triggers
-                  </h2>
-                  <ul>
-                    <li>* Physical activity (exercise-induced asthma).</li>
-                    <li>
-                      * Occupational triggers (e.g., workplace irritants).
-                    </li>
-                    <li>
-                      * Allergy-induced asthma (e.g., pollen, mold, dust mites,
-                      pet dander).
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="">
-                <div className="border-[1px] ml-[10%]  max-w-[90%] py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Disease Information
-                  </h2>
-                  <p>
-                    Asthma is a chronic respiratory condition characterized by
-                    airway inflammation and narrowing, leading to difficulty
-                    breathing, coughing, wheezing, and shortness of breath. It
-                    can be triggered by allergens, exercise, cold air, and
-                    respiratory infections.
-                  </p>
-                </div>
-                <div className="border-[1px] ml-[10%] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Medical Resources
-                  </h2>
-                  <ul>
-                    <li>
-                      * Asthma and Allergy Foundation of America:
-                      <a
-                        href="https://www.aafa.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        aafa.org
-                      </a>
-                    </li>
-                    <li>
-                      * Centers for Disease Control and Prevention (CDC) -
-                      Asthma:
-                      <a
-                        href="https://www.cdc.gov/asthma"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        cdc.gov/asthma
-                      </a>
-                    </li>
-                    <li>
-                      * American Lung Association:
-                      <a
-                        href="https://www.lung.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        lung.org
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {active === "heart" && (
-          <div className="py-20 px-[8%] relative">
-            <div
-              className="absolute md:w-[100%] h-[70%] inset-0 bg-cover md:w-[55%] w-[80%] bg-center"
-              style={{
-                backgroundImage: `url(${heart})`,
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            ></div>
-            <div className="grid grid-cols-2 gap-20">
-              <div>
-                <div className="border-[1px] max-w-[90%] py-5 px-8 bg-white/50 opacity-50  hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Common Symptoms
-                  </h2>
-                  <ul>
-                    <li>* Chest pain or discomfort (angina).</li>
-                    <li>* Shortness of breath.</li>
-                    <li>* Racing heartbeat (tachycardia).</li>
-                    <li>* Slow heartbeat (bradycardia).</li>
-                    <li>* Lightheadedness, dizziness, or fainting.</li>
-                    <li>* Swelling in the legs, ankles, and feet (edema).</li>
-                    <li>
-                      * Pain in the neck, jaw, throat, upper abdomen, or back.
-                    </li>
-                    <li>* Fluttering in your chest.</li>
-                  </ul>
-                </div>
-                <div className="border-[1px] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Specific Triggers
-                  </h2>
-                  <ul>
-                    <li>
-                      * Coronary artery disease: Chest pain (angina), shortness
-                      of breath.
-                    </li>
-                    <li>
-                      * Heart attack: Chest pain, pain in other areas of the
-                      upper body, shortness of breath, cold sweat, nausea,
-                      lightheadedness.
-                    </li>
-                    <li>
-                      * Heart failure: Shortness of breath (especially when
-                      lying down), fatigue, weakness, swelling in legs, ankles,
-                      and feet, rapid or irregular heartbeat, reduced ability to
-                      exercise, persistent cough or wheezing.
-                    </li>
-                  </ul>
+
+        <h1 className="lg:text-4xl md:text-3xl text-2xl font-bold text-center text-green-800 md:mb-8 mb-5">
+          Stages of Chronic Kidney Disease
+        </h1>
+
+        <div className="w-full bg-green-100 p-1 rounded-lg flex flex-wrap">
+          {stages.map((stage) => (
+            <button
+              key={stage.name}
+              onClick={() => setActiveTab(stage.name)}
+              className={`flex-1 py-2 px-4 rounded-md transition-colors min-w-[85px] ${
+                activeTab === stage.name
+                  ? "bg-green-500 text-white"
+                  : "text-green-700 hover:bg-green-200"
+              }`}
+            >
+              {stage.name}
+            </button>
+          ))}
+        </div>
+
+        {stages.map(
+          (stage) =>
+            activeTab === stage.name && (
+              <div key={stage.name} className="mt-8 md:pb-[100px] pb-[60px]">
+                <h2 className="text-2xl font-semibold text-green-800 mb-2">
+                  {stage.name}: {stage.description}
+                </h2>
+                <div className="relative">
+                  {/* Background Kidney Image */}
+                  <div
+                    className="absolute inset-0 opacity-80 pointer-events-none"
+                    style={{
+                      backgroundImage: `url('../../public/images/kidney.png')`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      backgroundSize: "contain",
+                    }}
+                    aria-hidden="true"
+                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:gap-[180px] lg:gap-[120px] md:gap-[80px] gap-8 mt-6">
+                    {/* Symptoms Card */}
+                    <div className="bg-white/60 backdrop-blur rounded-lg shadow-md">
+                      <div className="p-6">
+                        <h3 className="md:text-2xl text-lg font-semibold text-green-700 mb-4">
+                          Common Symptoms
+                        </h3>
+                        <ul className="space-y-2">
+                          {stage.symptoms.map((symptom, index) => (
+                            <li
+                              key={index}
+                              className="text-gray-900 flex items-start"
+                            >
+                              <span className="mr-2">•</span>
+                              {symptom}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Precautions Card */}
+                    <div className="bg-white/60 backdrop-blur rounded-lg shadow-md">
+                      <div className="p-6">
+                        <h3 className="md:text-2xl text-lg font-semibold text-green-700 mb-4">
+                          Precautions
+                        </h3>
+                        <ul className="space-y-2">
+                          {stage.precautions.map((precaution, index) => (
+                            <li
+                              key={index}
+                              className="text-gray-900 flex items-start"
+                            >
+                              <span className="mr-2">•</span>
+                              {precaution}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Treatment Card */}
+                    <div className="bg-white/60 backdrop-blur rounded-lg shadow-md">
+                      <div className="p-6">
+                        <h3 className="md:text-2xl text-lg font-semibold text-green-700 mb-4">
+                          Treatment
+                        </h3>
+                        <ul className="space-y-2">
+                          {stage.treatment.map((treatment, index) => (
+                            <li
+                              key={index}
+                              className="text-gray-900 flex items-start"
+                            >
+                              <span className="mr-2">•</span>
+                              {treatment}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Recommendations Card */}
+                    <div className="bg-white/60 backdrop-blur rounded-lg shadow-md">
+                      <div className="p-6">
+                        <h3 className="md:text-2xl text-lg font-semibold text-green-700 mb-4">
+                          Recommendations
+                        </h3>
+                        <ul className="space-y-2">
+                          {stage.recommendations.map(
+                            (recommendation, index) => (
+                              <li
+                                key={index}
+                                className="text-gray-900 flex items-start"
+                              >
+                                <span className="mr-2">•</span>
+                                {recommendation}
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="">
-                <div className="border-[1px] ml-[10%]  max-w-[90%] py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Disease Information
-                  </h2>
-                  <p>
-                    Heart disease encompasses a range of conditions affecting
-                    the heart, including coronary artery disease, heart rhythm
-                    problems (arrhythmias), congenital heart defects, heart
-                    infections, and more. It is the leading cause of death
-                    worldwide.
-                  </p>
-                </div>
-                <div className="border-[1px] ml-[10%] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Medical Resources
-                  </h2>
-                  <ul>
-                    <li>
-                      * American Heart Association:
-                      <a
-                        href="https://www.heart.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        heart.org
-                      </a>
-                    </li>
-                    <li>
-                      * Centers for Disease Control and Prevention (CDC) - Heart
-                      Disease:
-                      <a
-                        href="https://www.cdc.gov/heartdisease"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        cdc.gov/heartdisease
-                      </a>
-                    </li>
-                    <li>
-                      * Mayo Clinic - Heart Disease:
-                      <a
-                        href="https://www.mayoclinic.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        mayoclinic.org
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {active === "diabetes" && (
-          <div className="py-20 px-[8%] relative">
-            <div
-              className="absolute h-[100%] inset-0 bg-cover w-[100%] bg-center"
-              style={{
-                backgroundImage: `url(${diabetes})`,
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            ></div>
-            <div className="grid grid-cols-2 gap-20">
-              <div>
-                <div className="border-[1px] max-w-[90%] py-5 px-8 bg-white/50 opacity-50  hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Common Symptoms
-                  </h2>
-                  <ul>
-                    <li>* Increased thirst.</li>
-                    <li>* Frequent urination.</li>
-                    <li>* Extreme hunger.</li>
-                    <li>* Unexplained weight loss.</li>
-                    <li>* Irritability.</li>
-                    <li>* Blurred vision.</li>
-                    <li>* Slow-healing sores.</li>
-                    <li>* Fatigue.</li>
-                    <li>
-                      * Frequent infections (such as gums, skin, and vaginal
-                      infections).
-                    </li>
-                    <li>
-                      * Presence of ketones in the urine (a result of muscle and
-                      fat breakdown).
-                    </li>
-                  </ul>
-                </div>
-                <div className="border-[1px] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Specific Triggers
-                  </h2>
-                  <ul>
-                    <li>
-                      * Type 1 Diabetes: Sudden onset of severe symptoms like
-                      weight loss, fatigue, frequent urination, extreme hunger,
-                      and increased thirst.
-                    </li>
-                    <li>
-                      * Type 2 Diabetes: Gradual onset of symptoms like
-                      increased thirst, frequent urination, hunger, fatigue, and
-                      blurred vision.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="">
-                <div className="border-[1px] ml-[10%]  max-w-[90%] py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Disease Information
-                  </h2>
-                  <p>
-                    Diabetes is a chronic disease that occurs when the body
-                    cannot effectively use the insulin it produces or does not
-                    produce enough insulin. This leads to elevated blood glucose
-                    levels. The main types are Type 1, Type 2, and gestational
-                    diabetes.
-                  </p>
-                </div>
-                <div className="border-[1px] ml-[10%] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Medical Resources
-                  </h2>
-                  <ul>
-                    <li>
-                      * American Diabetes Association:
-                      <a
-                        href="https://www.diabetes.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        diabetes.org
-                      </a>
-                    </li>
-                    <li>
-                      * Centers for Disease Control and Prevention (CDC) -
-                      Diabetes:
-                      <a
-                        href="https://www.cdc.gov/diabetes"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        cdc.gov/diabetes
-                      </a>
-                    </li>
-                    <li>
-                      * International Diabetes Federation:
-                      <a
-                        href="https://www.idf.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        idf.org
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {active === "blood" && (
-          <div className="py-20 px-[8%] relative">
-            <div
-              className="absolute h-[100%] inset-0 bg-cover w-[50%] bg-center"
-              style={{
-                backgroundImage: `url(${Blood})`,
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            ></div>
-            <div className="grid grid-cols-2 gap-20">
-              <div>
-                <div className="border-[1px] max-w-[90%] py-5 px-8 bg-white/50 opacity-50  hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Common Symptoms
-                  </h2>
-                  <ul>
-                    <li>* Fever or chills.</li>
-                    <li>* Persistent fatigue and weakness.</li>
-                    <li>* Frequent or severe infections.</li>
-                    <li>* Swollen lymph nodes, enlarged liver or spleen.</li>
-                    <li>* Easy bleeding or bruising.</li>
-                    <li>* Recurrent nosebleeds.</li>
-                    <li>* Tiny red spots in your skin (petechiae).</li>
-                    <li>* Excessive sweating, especially at night.</li>
-                    <li>* Bone pain or tenderness.</li>
-                  </ul>
-                </div>
-                {/* <div className="border-[1px] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Specific Triggers
-                  </h2>
-                  <ul>
-                    <li>* Physical activity (exercise-induced asthma).</li>
-                    <li>
-                      * Occupational triggers (e.g., workplace irritants).
-                    </li>
-                    <li>
-                      * Allergy-induced asthma (e.g., pollen, mold, dust mites,
-                      pet dander).
-                    </li>
-                  </ul>
-                </div> */}
-              </div>
-              <div className="">
-                <div className="border-[1px] ml-[10%]  max-w-[90%] py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Disease Information
-                  </h2>
-                  <p>
-                    Blood cancers affect the production and function of blood
-                    cells. The main types are leukemia, lymphoma, and myeloma.
-                    These cancers typically start in the bone marrow, lymph
-                    nodes, or plasma cells.
-                  </p>
-                </div>
-                <div className="border-[1px] ml-[10%] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Medical Resources
-                  </h2>
-                  <ul>
-                    <li>
-                      * Leukemia & Lymphoma Society:
-                      <a
-                        href="https://www.lls.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        lls.org
-                      </a>
-                    </li>
-                    <li>
-                      * American Cancer Society - Leukemia:
-                      <a
-                        href="https://www.cancer.org/leukemia"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        cancer.org/leukemia
-                      </a>
-                    </li>
-                    <li>
-                      * Mayo Clinic - Multiple Myeloma:
-                      <a
-                        href="https://www.mayoclinic.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        mayoclinic.org
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {active === "brain" && (
-          <div className="py-20 px-[8%] relative">
-          <div
-          className="absolute lg:h-[70%] md:h-[60%] inset-0 bg-cover lg:w-[70%] w-[90%] bg-center"
-          style={{
-              backgroundImage: `url(${brain})`,
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-          }}
-      ></div>
-      
-            <div className="grid grid-cols-2 gap-20">
-              <div>
-                <div className="border-[1px] max-w-[90%] py-5 px-8 bg-white/50 opacity-50  hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Common Symptoms
-                  </h2>
-                  <ul>
-                    <li>
-                      * New or changing headaches (often worse in the morning or
-                      when lying down).
-                    </li>
-                    <li>* Seizures.</li>
-                    <li>
-                      * Gradual loss of sensation or movement in an arm or a
-                      leg.
-                    </li>
-                    <li>* Difficulty with balance.</li>
-                    <li>* Speech difficulties.</li>
-                    <li>* Confusion in everyday matters.</li>
-                    <li>* Personality or behavior changes.</li>
-                    <li>* Hearing problems.</li>
-                    <li>
-                      * Vision problems (blurred vision, double vision, or loss
-                      of peripheral vision).
-                    </li>
-                    <li>* Nausea or vomiting.</li>
-                    <li>* Drowsiness or fatigue.</li>
-                    <li>* Memory problems.</li>
-                  </ul>
-                </div>
-                <div className="border-[1px] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Specific Triggers
-                  </h2>
-                  <ul>
-                    <li>* Physical activity (exercise-induced asthma).</li>
-                    <li>
-                      * Occupational triggers (e.g., workplace irritants).
-                    </li>
-                    <li>
-                      * Allergy-induced asthma (e.g., pollen, mold, dust mites,
-                      pet dander).
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="">
-                <div className="border-[1px] ml-[10%]  max-w-[90%] py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Disease Information
-                  </h2>
-                  <p>
-                    A brain tumor is an abnormal growth of cells within the
-                    brain or central spinal cord. Tumors can be benign
-                    (non-cancerous) or malignant (cancerous). They can cause
-                    various neurological symptoms depending on their size and
-                    location.
-                  </p>
-                </div>
-                <div className="border-[1px] ml-[10%] max-w-[90%] my-4 py-5 px-8 bg-white/50 opacity-50 hover:opacity-100 duration-150 shadow-md   border-[#19492d] rounded-lg backdrop-blur-md  backdrop-filter">
-                  <h2 className="font-semibold text-lg py-3">
-                    Medical Resources
-                  </h2>
-                  <ul>
-                    <li>
-                      * American Brain Tumor Association:
-                      <a
-                        href="https://www.abta.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        abta.org
-                      </a>
-                    </li>
-                    <li>
-                      * National Brain Tumor Society:
-                      <a
-                        href="https://www.braintumor.org/"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        braintumor.org/
-                      </a>
-                    </li>
-                    <li>
-                      * Mayo Clinic - Brain Tumor:
-                      <a
-                        href="https://www.mayoclinic.org"
-                        className="text-blue-900 font-semibold"
-                        target="_blank"
-                      >
-                        {" "}
-                        mayoclinic.org
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+            )
         )}
       </div>
     </div>
   );
-};
-
-export default Information;
+}

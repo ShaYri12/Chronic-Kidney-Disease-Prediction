@@ -64,26 +64,40 @@ const Footer = () => {
           </div>
           <div className="lg:w-1/3 md:w-full w-full px-4">
             <div className="flex flex-col items-center">
-              <h2 className="title-font font-bold text-white tracking-widest text-lg mb-8">
+              <h2 className="title-font font-bold lg:text-left text-center text-white tracking-widest text-lg mb-8 lg:ms-[-18px]">
                 Quick Links
               </h2>
-              <nav className="list-none mb-10 space-y-4 font-normal">
+              <nav className="list-none mb-10 space-y-4 font-normal lg:text-left text-center">
                 <li>
-                  <Link className="text-white hover:text-white">Link One</Link>
-                </li>
-                <li>
-                  <Link className="text-white hover:text-white">Link Two</Link>
-                </li>
-                <li>
-                  <Link className="text-white hover:text-white">
-                    Link Three
+                  <Link to="/" className="text-white hover:text-white">
+                    Home
                   </Link>
                 </li>
                 <li>
-                  <Link className="text-white hover:text-white">Link Four</Link>
+                  <Link
+                    to="/prediction"
+                    className="text-white hover:text-white"
+                  >
+                    Disease Prediction
+                  </Link>
                 </li>
                 <li>
-                  <Link className="text-white hover:text-white">Link Five</Link>
+                  <Link
+                    to="information"
+                    className="text-white hover:text-white"
+                  >
+                    Information
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/support" className="text-white hover:text-white">
+                    Support
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/about" className="text-white hover:text-white">
+                    About
+                  </Link>
                 </li>
               </nav>
             </div>

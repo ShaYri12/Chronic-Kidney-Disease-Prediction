@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className=" min-h-screen px-[8%] flex items-center justify-center">
+    <section className=" min-h-[80vh] px-[8%] flex items-center justify-center">
       <div className="grid items-center md:grid-cols-2 grid-cols-1 gap-4 md:py-0 py-10 ">
         <div className="text-center md:text-left">
           <h1 className="text-3xl font-bold py-3">
