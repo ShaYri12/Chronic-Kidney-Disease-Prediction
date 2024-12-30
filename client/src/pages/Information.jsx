@@ -210,7 +210,7 @@ export default function CKDStages() {
               onClick={() => setActiveTab(stage.name)}
               className={`flex-1 py-2 px-4 rounded-md transition-colors min-w-[85px] ${
                 activeTab === stage.name
-                  ? "bg-green-500 text-white"
+                  ? "bg-[#0b9444] text-white"
                   : "text-green-700 hover:bg-green-200"
               }`}
             >
@@ -223,7 +223,7 @@ export default function CKDStages() {
           (stage) =>
             activeTab === stage.name && (
               <div key={stage.name} className="mt-8 md:pb-[100px] pb-[60px]">
-                <h2 className="text-2xl font-semibold text-green-800 mb-2">
+                <h2 className="text-2xl font-semibold text-green-800 mb-10">
                   {stage.name}: {stage.description}
                 </h2>
                 <div className="relative">
@@ -249,7 +249,7 @@ export default function CKDStages() {
                           {stage.symptoms.map((symptom, index) => (
                             <li
                               key={index}
-                              className="text-gray-900 flex items-start"
+                              className="xl:text-[20px] md:text-[18px] text-gray-900 flex items-start"
                             >
                               <span className="mr-2">•</span>
                               {symptom}
@@ -269,7 +269,7 @@ export default function CKDStages() {
                           {stage.precautions.map((precaution, index) => (
                             <li
                               key={index}
-                              className="text-gray-900 flex items-start"
+                              className="xl:text-[20px] md:text-[18px] text-gray-900 flex items-start"
                             >
                               <span className="mr-2">•</span>
                               {precaution}
@@ -289,7 +289,7 @@ export default function CKDStages() {
                           {stage.treatment.map((treatment, index) => (
                             <li
                               key={index}
-                              className="text-gray-900 flex items-start"
+                              className="xl:text-[20px] md:text-[18px] text-gray-900 flex items-start"
                             >
                               <span className="mr-2">•</span>
                               {treatment}
@@ -310,7 +310,7 @@ export default function CKDStages() {
                             (recommendation, index) => (
                               <li
                                 key={index}
-                                className="text-gray-900 flex items-start"
+                                className="xl:text-[20px] md:text-[18px] text-gray-900 flex items-start"
                               >
                                 <span className="mr-2">•</span>
                                 {recommendation}

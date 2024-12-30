@@ -69,8 +69,8 @@ const Navbar = () => {
         >
           <img src={LOGO} alt="" className="md:h-14 h-9" />
           <div className="flex flex-col justify-center">
-            <p className="md:text-base text-base text-[#0b9444]">DISEASE</p>
-            <p className="md:text-sm text-[14px] text-[#89c43f]">
+            <p className="md:text-3xl text-base text-[#0b9444]">DISEASE</p>
+            <p className="md:text-[20px] text-[14px] text-[#89c43f]">
               Prediction System
             </p>
           </div>

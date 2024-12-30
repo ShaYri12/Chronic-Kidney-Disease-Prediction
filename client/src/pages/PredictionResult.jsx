@@ -1,11 +1,26 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Pie } from "react-chartjs-2";
-import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie, Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+} from "chart.js";
 import CKDTips from "../components/CKDTips";
 
 // Register Chart.js components
-Chart.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement
+);
 
 const PredictionResult = () => {
   useEffect(() => {
@@ -76,6 +91,79 @@ const PredictionResult = () => {
     ],
   });
 
+  const generateOverallChartData = (overallResult) => ({
+    labels: ["CKD", "Healthy"],
+    datasets: [
+      {
+        data: [
+          overallResult.averageCKDProbability,
+          overallResult.healthyProbability,
+        ],
+        backgroundColor: ["#f87171", "#34d399"],
+        borderColor: ["#f87171", "#34d399"],
+        borderWidth: 1,
+      },
+    ],
+  });
+
+  const generateBarChartData = (predictions) => {
+    if (!predictions || predictions.length === 0) return {};
+
+    const labels = predictions.map((p) => p.algorithm);
+    const ckdData = predictions.map((p) => p.probabilities.ckd);
+    const healthyData = predictions.map((p) => 100 - p.probabilities.ckd);
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: "CKD",
+          data: ckdData,
+          backgroundColor: "#f87171",
+          borderRadius: 8,
+        },
+        {
+          label: "Healthy",
+          data: healthyData,
+          backgroundColor: "#34d399",
+          borderRadius: 8,
+        },
+      ],
+    };
+  };
+
+  const barChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: {
+          font: {
+            size: 12, // Adjust Y-axis font size
+          },
+        },
+      },
+      x: {
+        ticks: {
+          font: {
+            size: window.innerWidth < 640 ? 10 : 14, // Responsive font size for small devices
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: window.innerWidth < 640 ? 10 : 14, // Responsive font size for legend
+          },
+        },
+      },
+    },
+  };
+
   const options = {
     responsive: true,
     plugins: {
@@ -99,24 +187,31 @@ const PredictionResult = () => {
     }, 0);
 
     const averageCKDProbability = totalCKDProbability / predictions.length;
+    const healthyProbability = 100 - averageCKDProbability;
 
     if (averageCKDProbability > 70) {
       return {
         text: "High likelihood of CKD 😔",
         color: "text-red-600",
         bgColor: "bg-red-100",
+        averageCKDProbability,
+        healthyProbability,
       };
     } else if (averageCKDProbability > 40) {
       return {
         text: "Moderate likelihood of CKD 😐",
         color: "text-yellow-600",
         bgColor: "bg-yellow-100",
+        averageCKDProbability,
+        healthyProbability,
       };
     } else {
       return {
         text: "Low likelihood of CKD 😊",
         color: "text-green-600",
         bgColor: "bg-green-200/40",
+        averageCKDProbability,
+        healthyProbability,
       };
     }
   };
@@ -125,7 +220,7 @@ const PredictionResult = () => {
 
   return (
     <div className="min-h-screen px-4 md:px-6 py-12 bg-gray-100">
-      <div className="max-w-6xl mx-auto space-y-12">
+      <div className="max-w-[1280px] mx-auto space-y-12">
         {/* Page Header */}
         <header className="text-center">
           <h1 className="text-4xl font-extrabold text-gray-800">
@@ -140,16 +235,63 @@ const PredictionResult = () => {
         {/* Overall Result */}
         {overallResult && (
           <section
-            className={`flex flex-col items-center md:px-8 px-4 py-6 md:py-8 rounded-lg shadow-md border ${overallResult.bgColor}`}
+            className={`flex flex-col items-center md:px-8 px-4 py-6 md:py-8 rounded-[16px] shadow-lg border ${overallResult.bgColor}`}
           >
-            <h2 className={`text-2xl font-bold ${overallResult.color}`}>
+            <h2 className={`text-2xl font-bold ${overallResult.color} mb-4`}>
               {overallResult.text}
             </h2>
-            <p className="text-gray-700 text-center mt-2">
-              This result is based on an average analysis of all algorithms.
-            </p>
+            <div className="flex flex-col md:flex-row items-center justify-between w-full">
+              <div className="w-full md:w-1/2 mb-4 md:mb-0 bg-white/90 rounded-lg px-4 py-8 shadow-lg flex flex-col justify-center">
+                <p className="text-gray-700 mb-4 text-center">
+                  This result is based on an average analysis of all algorithms.
+                </p>
+                <div className="flex gap-4 items-cente justify-center mb-6">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">CKD Risk</p>
+                    <p className={`text-2xl font-bold ${overallResult.color}`}>
+                      {overallResult.averageCKDProbability.toFixed(2)}%
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600">Healthy</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {overallResult.healthyProbability.toFixed(2)}%
+                    </p>
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  What does this mean?
+                </h3>
+                <p className="text-gray-600">
+                  {overallResult.averageCKDProbability.toFixed(2) > 70
+                    ? "Your results indicate a high risk of Chronic Kidney Disease. It's crucial to consult with a healthcare professional as soon as possible for a thorough evaluation and potential treatment plan."
+                    : overallResult.averageCKDProbability.toFixed(2) > 40
+                    ? "Your results suggest a moderate risk of Chronic Kidney Disease. It's recommended to discuss these findings with your doctor to determine if further testing or preventive measures are needed."
+                    : "Your results indicate a low risk of Chronic Kidney Disease. However, it's always good to maintain a healthy lifestyle and have regular check-ups with your healthcare provider."}
+                </p>
+              </div>
+              <div className="w-full md:w-1/2 max-w-[400px] sm:h-[400px] flex items-center justify-center">
+                <Pie
+                  data={generateOverallChartData(overallResult)}
+                  options={options}
+                />
+              </div>
+            </div>
           </section>
         )}
+
+        {/* Bar Chart */}
+        <section className="mt-8 flex flex-col justify-center items-center">
+          <h2 className="text-center text-2xl font-bold text-gray-800 mb-4">
+            Algorithm Comparison
+          </h2>
+          <div className="w-full sm:max-w-full max-w-[400px] sm:h-[450px] flex items-center justify-center">
+            <Bar
+              data={generateBarChartData(predictions)}
+              options={barChartOptions}
+            />
+          </div>
+        </section>
 
         {/* Predictions Section */}
         <section>
@@ -221,7 +363,7 @@ const PredictionResult = () => {
                                 : "Healthy"}
                             </span>
                             <span className="text-gray-800 font-medium">
-                              {prob}%
+                              {prob.toFixed(2)}%
                             </span>
                           </div>
                         ))}
@@ -229,7 +371,7 @@ const PredictionResult = () => {
                     </div>
 
                     {/* Chart */}
-                    <div className="mt-4 w-full max-w-[300px]">
+                    <div className="mt-4 w-full sm:h-[300px] flex items-center justify-center">
                       <Pie
                         className="mx-auto"
                         data={generatePieData(probabilities)}
